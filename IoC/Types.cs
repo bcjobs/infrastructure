@@ -34,6 +34,20 @@ namespace IoC
                 t => t.Namespace?.EndsWith("." + kind) == true);
         }
 
+        public Types Interfaces()
+        {
+            return new SelectedTypes(
+                this,
+                t => t.IsInterface);
+        }
+
+        public Types Classes()
+        {
+            return new SelectedTypes(
+                this,
+                t => t.IsClass && !t.IsAbstract);
+        }
+
         public static Types operator +(Types x, Types y)
         {
             return new CombinedTypes(x, y);
