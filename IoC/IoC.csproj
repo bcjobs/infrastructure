@@ -128,9 +128,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assemblies.cs" />
+    <Compile Include="AssemblyTypes.cs" />
     <Compile Include="CombinedAssemblies.cs" />
+    <Compile Include="CombinedTypes.cs" />
     <Compile Include="DirectoryAssemblies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectedTypes.cs" />
+    <Compile Include="Types.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
