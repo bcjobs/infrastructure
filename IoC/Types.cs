@@ -20,11 +20,11 @@ namespace IoC
             return GetEnumerator();
         }
 
-        public Types With<TAttribyte>() where TAttribyte : Attribute
+        public Types With<TAttribute>() where TAttribute : Attribute
         {
             return new SelectedTypes(
                 this, 
-                t => t.IsDefined(typeof(TAttribyte), false));
+                t => t.IsDefined(typeof(TAttribute), false));
         }
 
         public Types KindOf(string kind)
