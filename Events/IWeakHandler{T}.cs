@@ -14,7 +14,7 @@ namespace Events
     }
 
     [ContractClassFor(typeof(IWeakHandler<>))]
-    class WeakHandlerContract<T> : IWeakHandler<T>
+    abstract class WeakHandlerContract<T> : IWeakHandler<T>
     {
         public Task<bool> HandleAsync(T e)
         {

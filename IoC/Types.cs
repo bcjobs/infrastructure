@@ -11,6 +11,7 @@ namespace IoC
     [ContractClass(typeof(TypesContract))]
     public abstract class Types : IEnumerable<Type>
     {
+        public static Types Referenced { get; } = new AssemblyTypes(Assemblies.Referenced);
         public static Types Local { get; } = new AssemblyTypes(Assemblies.Local);
         public static Types In(string directory) => In(Assemblies.In(directory));
         public static Types In(Assemblies assemblies) => new AssemblyTypes(assemblies);
@@ -54,6 +55,13 @@ namespace IoC
             return new SelectedTypes(
                 this,
                 t => t.IsClass && !t.IsAbstract);
+        }
+        
+        public void ForAll(Action<Type> action)
+        {
+            Contract.Requires<ArgumentNullException>(action != null);
+            foreach (var type in this)
+                action(type);
         }
 
         public static Types operator +(Types x, Types y)

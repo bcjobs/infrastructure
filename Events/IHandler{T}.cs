@@ -14,7 +14,7 @@ namespace Events
     }
 
     [ContractClassFor(typeof(IHandler<>))]
-    class HandlerContract<T> : IHandler<T>
+    abstract class HandlerContract<T> : IHandler<T>
     {
         public Task<bool> HandleAsync(T e)
         {

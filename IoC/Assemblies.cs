@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace IoC
     [ContractClass(typeof(AssembliesContract))]
     public abstract class Assemblies : IEnumerable<Assembly>
     {
+        public static Assemblies Referenced { get; } = new ReferencedAssemblies();
+
         static string LocalDirectory { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public static Assemblies Local { get; } = new DirectoryAssemblies(LocalDirectory);
-        public static Assemblies In(string directory) => new DirectoryAssemblies(directory);
+        public static Assemblies In(string directory) => new DirectoryAssemblies(directory);        
 
         public abstract IEnumerator<Assembly> GetEnumerator();
 
@@ -23,6 +26,13 @@ namespace IoC
         {
             Contract.Ensures(Contract.Result<IEnumerator>() != null);
             return GetEnumerator();
+        }
+
+        public void ForAll(Action<Assembly> action)
+        {
+            Contract.Requires<ArgumentNullException>(action != null);
+            foreach (var assembly in this)
+                action(assembly);
         }
 
         public static Assemblies operator+(Assemblies x, Assemblies y)

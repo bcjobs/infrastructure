@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
@@ -41,23 +42,35 @@ namespace Events
                 .RaiseAsync();
         }
 
+        [DebuggerHidden]
         public static async Task<TReply> RequestAsync<TReply>(this object original)
         {
             Contract.Requires<ArgumentNullException>(original != null);
             Contract.Ensures(Contract.Result<Task<TReply>>() != null);
 
-            var tcs = new TaskCompletionSource<TReply>();
+            var sync = new Object();
+            var reply = default(TReply);
+            Exception ex = new MissingReplyException(original.GetType(), typeof(TReply));
             await original.RequestAsync(
                 async (TReply e) =>
                 {
-                    if (!tcs.TrySetResult(e))
-                        throw new TooManyReplaysException(original.GetType(), typeof(TReply));
+                    lock (sync)
+                        if (ex is MissingReplyException)
+                        {
+                            ex = null;
+                            reply = e;
+                        }
+                        else
+                            ex = new TooManyRepliesException(original.GetType(), typeof(TReply));
 
                     return true;
                 });
 
-            tcs.TrySetException(new NoReplayException(original.GetType(), typeof(TReply)));
-            return tcs.Task.Result;
+            if (ex == null)
+                return reply;
+            else
+                throw ex;
+
         }
 
         public static async Task RequestAsync<TOriginal, T1>(this TOriginal original, 
@@ -148,27 +161,52 @@ namespace Events
         }
     }
 
-    public class TooManyReplaysException : InvalidOperationException
+
+    [Serializable]
+    public class TooManyRepliesException : Exception
     {
-        public TooManyReplaysException(Type source, Type replay)
+        protected TooManyRepliesException()
+        {
+        }
+
+        public TooManyRepliesException(Type source, Type replay)
             : base(String.Format(
-                "Single reply of type {0} expected for event {1}.",
+                "Too many replies of type {0} for event {1}.",
                 replay.FullName, source.FullName))
         {
             Contract.Requires<ArgumentNullException>(source != null);
             Contract.Requires<ArgumentNullException>(replay != null);
         }
+
+        protected TooManyRepliesException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) 
+            : base(info, context)
+        {
+        }
     }
 
-    public class NoReplayException : NotImplementedException
+    [Serializable]
+    public class MissingReplyException : Exception
     {
-        public NoReplayException(Type source, Type replay)
+        protected MissingReplyException()
+        {
+        }
+
+        public MissingReplyException(Type source, Type replay)
             : base(String.Format(
-                "Single reply of type {0} expected for event {1}.",
+                "Missing reply of type {0} for event {1}.",
                 replay.FullName, source.FullName))
         {
             Contract.Requires<ArgumentNullException>(source != null);
             Contract.Requires<ArgumentNullException>(replay != null);
+        }
+
+        protected MissingReplyException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) 
+            : base(info, context)
+        {
         }
     }
 }
