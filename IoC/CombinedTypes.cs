@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace IoC
     {
         public CombinedTypes(params Types[] types)
         {
+            Contract.Requires<ArgumentNullException>(types != null);
+            Contract.Ensures(Types != null);
             Types = types;
         }
 

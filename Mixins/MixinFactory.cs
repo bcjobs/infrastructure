@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -12,11 +13,16 @@ namespace Mixins
     {
         public MixinFactory(Type mixinInterface)
         {
+            Contract.Requires<ArgumentNullException>(mixinInterface != null);
+            Contract.Requires<ArgumentException>(mixinInterface.IsInterface);
+
             MixinInterface = mixinInterface;
         }
 
         public Type Emit()
         {
+            Contract.Ensures(Contract.Result<Type>() != null);
+
             var tb = TypeBuilder();
             var fbs = FieldBuilders(tb);
             DefineConstructor(tb, fbs);
@@ -32,6 +38,9 @@ namespace Mixins
 
         void DefineConstructor(TypeBuilder tb, IEnumerable<FieldBuilder> fbs)
         {
+            Contract.Requires<ArgumentNullException>(tb != null);
+            Contract.Requires<ArgumentNullException>(fbs != null);
+
             ConstructorBuilder ctor = ConstructorBuilder(tb, fbs);
             ILGenerator il = ctor.GetILGenerator();
 
@@ -52,6 +61,9 @@ namespace Mixins
 
         void DelegateTo(TypeBuilder tb, FieldInfo fi)
         {
+            Contract.Requires<ArgumentNullException>(tb != null);
+            Contract.Requires<ArgumentNullException>(fi != null);
+
             foreach (var mi in fi.FieldType.GetMethods())
             {
                 var mb = tb.DefineMethod(
@@ -95,8 +107,7 @@ namespace Mixins
                 TypeAttributes.Class | TypeAttributes.Public,
                 typeof(object),
                 new[] { MixinInterface });
-
-
+        
         ModuleBuilder ModuleBuilder() => AssemblyBuilder()
             .DefineDynamicModule(Guid.NewGuid().ToString());
 

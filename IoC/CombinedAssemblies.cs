@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,6 +12,8 @@ namespace IoC
     {
         public CombinedAssemblies(params Assemblies[] assemblies)
         {
+            Contract.Requires<ArgumentNullException>(assemblies != null);
+            Contract.Ensures(Assemblies != null);
             Assemblies = assemblies;
         }
 
