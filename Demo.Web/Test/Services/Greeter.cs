@@ -31,8 +31,8 @@ namespace Demo.Web.Test.Services
         public async Task<bool> HandleAsync(Meeting e)
         {
             //throw new GoAwayException();
-            await e.ReplyAsync(new Greeting());
-            await e.ReplyAsync(new Greeting());
+            //await e.ReplyAsync(new Greeting());
+            //await e.ReplyAsync(new Greeting());
             return true;
         }
     }
