@@ -13,7 +13,7 @@ namespace Logs.EF6.Entities
 
         public string UserId { get; set; }
         public string ImpersonatorId { get; set; }
-        public Guid ApiKey { get; set; }
+        public string ApiKey { get; set; }
         public string ClientIP { get; set; }
 
         public string EventJson { get; set; }

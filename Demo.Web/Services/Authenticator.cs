@@ -10,7 +10,7 @@ namespace Demo.Web.Services
 {
     public class Authenticator : IAuthenticator
     {
-        public Guid ApiKey => Guid.Empty;
+        public string ApiKey => null;
         public IPAddress ClientIP => IPAddress.None;            
         public string ImpersonatorId => null;            
         public string UserId => null;

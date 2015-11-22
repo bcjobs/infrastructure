@@ -25,24 +25,28 @@ namespace Demo.Web.Controllers
 
         ILog Log { get; }
 
+        class MyEvent : ILoggable
+        {
+            public int MyProperty { get; set; }
+        }
+
+        
+
+
         public async Task<IEnumerable<ILogMessage<object, Exception>>> Get()
         {
-            await RequestCapture.Capture(Request)
-                .RaiseAsync();
-
-            return Log.Read(new LogQuery<RequestCapture>());
-
+            await RequestCapture.Capture(Request);
             
-
+            return Log.Read(new LogQuery<RequestCapture>());
         }
     }
 
     public class RequestCapture : ILoggable
     {
-        public static RequestCapture Capture(HttpRequestMessage request)
+        public static Task<bool> Capture(HttpRequestMessage request)
         {
-            return new RequestCapture(
-                request.RequestUri);
+            return new RequestCapture(request.RequestUri)
+                .RaiseAsync();
         }
 
         public RequestCapture(Uri requestUri)

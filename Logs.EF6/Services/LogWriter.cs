@@ -17,6 +17,7 @@ namespace Logs.EF6.Services
         ILogWriter,
         IHandler<ILoggable>,
         IHandler<ICustomLoggable>,
+        IHandler<Exception>,
         IHandler<If<ILoggable<Unhandled>, Unhandled>>,
         IHandler<If<ILoggable<Succeeded>, Succeeded>>,
         IHandler<If<ILoggable<Failed>, Failed>>
@@ -88,6 +89,12 @@ namespace Logs.EF6.Services
         public async Task<bool> HandleAsync(ICustomLoggable e)
         {
             Write(e.Event, e.Exception);
+            return true;
+        }
+
+        public async Task<bool> HandleAsync(Exception e)
+        {
+            Write<object, Exception>(null, e);
             return true;
         }
     }

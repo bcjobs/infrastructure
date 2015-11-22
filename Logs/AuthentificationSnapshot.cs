@@ -9,7 +9,7 @@ namespace Logs
 {
     public class AuthentificationSnapshot
     {
-        public AuthentificationSnapshot(string userId, string impersonatorId, Guid apiKey, IPAddress clientIP)
+        public AuthentificationSnapshot(string userId, string impersonatorId, string apiKey, IPAddress clientIP)
         {
             UserId = userId;
             ImpersonatorId = impersonatorId;
@@ -19,7 +19,7 @@ namespace Logs
 
         public string UserId { get; }
         public string ImpersonatorId { get; }
-        public Guid ApiKey { get; }
+        public string ApiKey { get; }
         public IPAddress ClientIP { get; }
     }
 }

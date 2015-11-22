@@ -11,7 +11,7 @@ namespace Authentifications
     {
         string UserId { get; }
         string ImpersonatorId { get; }
-        Guid ApiKey { get; }
+        string ApiKey { get; }
         IPAddress ClientIP { get; }
     }
 
