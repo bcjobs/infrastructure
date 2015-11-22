@@ -1,4 +1,4 @@
-﻿using Authentifications;
+﻿using Authentications;
 using Base;
 using Events;
 using Logs.EF6.Entities;

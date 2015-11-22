@@ -6,7 +6,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authentifications
+namespace Authentications
 {
     public interface IAuthenticator
     {
@@ -18,7 +18,7 @@ namespace Authentifications
 
     public static class Authenticator
     {
-        public static void Authentificate(this IAuthenticator authenticator)
+        public static void Authenticate(this IAuthenticator authenticator)
         {
             if (!authenticator.IsAuthenticated())
                 throw new AuthenticationException();

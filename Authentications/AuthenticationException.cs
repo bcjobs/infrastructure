@@ -5,7 +5,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authentifications
+namespace Authentications
 {
     public class AuthenticationException : SecurityException
     {
