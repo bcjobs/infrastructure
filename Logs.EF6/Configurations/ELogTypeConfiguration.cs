@@ -15,9 +15,6 @@ namespace Logs.EF6.Configurations
         public ELogTypeConfiguration()
         {
             ToTable("Types", "Logs");
-            HasKey(t => new { t.Id, t.LogMessageId });
-            Property(t => t.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(1000)

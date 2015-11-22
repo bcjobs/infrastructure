@@ -49,19 +49,28 @@ namespace Logs.EF6.Services
 
                     EventJson = e.ToJson(),
                     EventTypes = new ImplementedTypes(e)
-                        .Select(t => new ELogType { Name = t.FullName })
+                        .Select(t => ELogType(ctx, t))
                         .ToList(),
 
                     ExceptionJson = ex.ToJson(),
                     ExceptionTypes = new ImplementedTypes(ex)
-                        .Select(t => new ELogType { Name = t.FullName })
+                        .Select(t => ELogType(ctx, t))
                         .ToList()
                 });
 
                 ctx.SaveChanges();
             }
         }
-        
+
+        ELogType ELogType(LogContext contex, Type type)
+        {
+            var eLogType = contex.Types.FirstOrDefault(t => t.Name == type.FullName);
+            if (eLogType == null)
+                eLogType = contex.Types.Add(new ELogType { Name = type.FullName });
+
+            return eLogType;
+        }
+
         public async Task<bool> HandleAsync(If<ILoggable<Succeeded>, Succeeded> e)
         {
             Write<object, Exception>(e.Subject, null);

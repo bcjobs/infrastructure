@@ -9,7 +9,6 @@ namespace Logs.EF6.Entities
     class ELogType
     {
         public int Id { get; private set; }
-        public int LogMessageId { get; private set; }
         public string Name { get; set; }
     }
 }

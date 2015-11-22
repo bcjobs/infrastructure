@@ -161,6 +161,22 @@
     <Compile Include="Migrations\201511222016473_ApiKeyIsStringNow.Designer.cs">
       <DependentUpon>201511222016473_ApiKeyIsStringNow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511222039232_AddBridgeTableForLogTypes.cs" />
+    <Compile Include="Migrations\201511222039232_AddBridgeTableForLogTypes.Designer.cs">
+      <DependentUpon>201511222039232_AddBridgeTableForLogTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511222042369_RenameBridgeTableForLogTypes.cs" />
+    <Compile Include="Migrations\201511222042369_RenameBridgeTableForLogTypes.Designer.cs">
+      <DependentUpon>201511222042369_RenameBridgeTableForLogTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511222044253_RenameBridgeTableForLogTypes1.cs" />
+    <Compile Include="Migrations\201511222044253_RenameBridgeTableForLogTypes1.Designer.cs">
+      <DependentUpon>201511222044253_RenameBridgeTableForLogTypes1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511222046010_RenameBridgeTableForLogTypes2.cs" />
+    <Compile Include="Migrations\201511222046010_RenameBridgeTableForLogTypes2.Designer.cs">
+      <DependentUpon>201511222046010_RenameBridgeTableForLogTypes2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LogReader.cs" />
@@ -201,6 +217,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511222016473_ApiKeyIsStringNow.resx">
       <DependentUpon>201511222016473_ApiKeyIsStringNow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511222039232_AddBridgeTableForLogTypes.resx">
+      <DependentUpon>201511222039232_AddBridgeTableForLogTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511222042369_RenameBridgeTableForLogTypes.resx">
+      <DependentUpon>201511222042369_RenameBridgeTableForLogTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511222044253_RenameBridgeTableForLogTypes1.resx">
+      <DependentUpon>201511222044253_RenameBridgeTableForLogTypes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511222046010_RenameBridgeTableForLogTypes2.resx">
+      <DependentUpon>201511222046010_RenameBridgeTableForLogTypes2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

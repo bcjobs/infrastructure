@@ -14,11 +14,11 @@ namespace Logs.EF6.Configurations
         {
             ToTable("Messages", "Logs");
             HasMany(m => m.EventTypes)
-                .WithRequired()
-                .HasForeignKey(t => t.LogMessageId);
+                .WithMany()
+                .Map(ca => ca.ToTable("EventTypes", "Logs"));
             HasMany(m => m.ExceptionTypes)
-                .WithRequired()
-                .HasForeignKey(t => t.LogMessageId);
+                .WithMany()
+                .Map(ca => ca.ToTable("ExceptionTypes", "Logs"));                
         }
     }
 }
