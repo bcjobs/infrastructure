@@ -129,6 +129,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationException.cs" />
     <Compile Include="IAuthenticator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

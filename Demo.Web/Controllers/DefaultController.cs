@@ -30,14 +30,11 @@ namespace Demo.Web.Controllers
             public int MyProperty { get; set; }
         }
 
-        
-
-
         public async Task<IEnumerable<ILogMessage<object, Exception>>> Get()
         {
             await RequestCapture.Capture(Request);
             
-            return Log.Read(new LogQuery<RequestCapture>());
+            return Log.Read(new LogQuery<object, Exception>());
         }
     }
 

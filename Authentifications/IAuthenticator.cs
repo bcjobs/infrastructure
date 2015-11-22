@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,14 +18,20 @@ namespace Authentifications
 
     public static class Authenticator
     {
-        public static bool IsAuthenticated(this IAuthenticator athentificator)
+        public static void Authentificate(this IAuthenticator authenticator)
         {
-            return athentificator.UserId != null;
+            if (!authenticator.IsAuthenticated())
+                throw new AuthenticationException();
         }
 
-        public static bool IsImpersonated(this IAuthenticator athentificator)
+        public static bool IsAuthenticated(this IAuthenticator authenticator)
         {
-            return athentificator.UserId != athentificator.ImpersonatorId;
+            return authenticator.UserId != null;
+        }
+
+        public static bool IsImpersonated(this IAuthenticator authenticator)
+        {
+            return authenticator.UserId != authenticator.ImpersonatorId;
         }
     }
 }
