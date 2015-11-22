@@ -31,26 +31,8 @@ namespace Demo.Web.Controllers
         }
 
         public async Task<IEnumerable<ILogMessage<object, Exception>>> Get()
-        {
-            await RequestCapture.Capture(Request);
-            
-            return Log.Read(new LogQuery<object, Exception>());
+        {            
+            return Log.Read(new LogQuery());
         }
-    }
-
-    public class RequestCapture : ILoggable
-    {
-        public static Task<bool> Capture(HttpRequestMessage request)
-        {
-            return new RequestCapture(request.RequestUri)
-                .RaiseAsync();
-        }
-
-        public RequestCapture(Uri requestUri)
-        {
-            RequestUri = requestUri;
-        }
-
-        public Uri RequestUri { get; }
     }
 }

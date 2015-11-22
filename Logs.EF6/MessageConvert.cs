@@ -30,8 +30,8 @@ namespace Logs.EF6
             new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All,
-                //ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
-                //PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
             };
     }
 }
