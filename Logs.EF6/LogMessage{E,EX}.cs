@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logs
+namespace Logs.EF6
 {
-    public class LogMessage<E, EX>
+    public class LogMessage<E, EX> : ILogMessage<E,EX>
+        where EX : Exception
     {
         public LogMessage(
             DateTime loggedAt,

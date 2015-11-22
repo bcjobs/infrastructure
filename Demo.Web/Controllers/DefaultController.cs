@@ -10,56 +10,46 @@ using Events;
 using Demo.Web.Test.Services;
 using Logs;
 using System.Diagnostics.Contracts;
+using System.Web;
 
 namespace Demo.Web.Controllers
 {    
     public class DefaultController : ApiController
     {
-        public DefaultController(ILogWriter logWriter, ILogReader logReader)
+        public DefaultController(ILog log)
         {
-            Contract.Requires<ArgumentNullException>(logWriter != null);
-            Contract.Requires<ArgumentNullException>(logReader != null);
-            Contract.Ensures(LogWriter != null);
-            Contract.Ensures(LogReader != null);
-            LogWriter = logWriter;
-            LogReader = logReader;
+            Contract.Requires<ArgumentNullException>(log != null);
+            Contract.Ensures(Log != null);
+            Log = log;
         }
 
-        ILogWriter LogWriter { get; }
-        ILogReader LogReader { get; }
+        ILog Log { get; }
 
-        public async Task<string> Get()
+        public async Task<IEnumerable<ILogMessage<object, Exception>>> Get()
         {
-            LogWriter.WriteEvent(new Meeting());
-            LogWriter.WriteEvent(new Greeting());
+            await RequestCapture.Capture(Request)
+                .RaiseAsync();
 
-            var mm = LogReader.Read(new EventQuery<Meeting>());
+            return Log.Read(new LogQuery<RequestCapture>());
 
-
-            return "OK";
-            //try
-            //{
-            //    var greeting = await new Meeting()
-            //        .RequestAsync<Greeting>();
-
-            //    return "OK"; // greeting.Text;
-            //}
-            //catch (GoAwayException ex)
-            //{
-            //    var m = ex.Message;
-            //    return m;
-            //}
-            //catch (TooManyRepliesException ex)
-            //{
-            //    var m = ex.Message;
-            //    return m;
-            //}
-            //catch (MissingReplyException ex)
-            //{
-            //    var m = ex.Message;
-            //    return m;
-            //}
+            
 
         }
+    }
+
+    public class RequestCapture : ILoggable
+    {
+        public static RequestCapture Capture(HttpRequestMessage request)
+        {
+            return new RequestCapture(
+                request.RequestUri);
+        }
+
+        public RequestCapture(Uri requestUri)
+        {
+            RequestUri = requestUri;
+        }
+
+        public Uri RequestUri { get; }
     }
 }

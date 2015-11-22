@@ -130,10 +130,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthentificationSnapshot.cs" />
+    <Compile Include="ILog.cs" />
+    <Compile Include="ILoggable.cs" />
     <Compile Include="ILoggable{R}.cs" />
+    <Compile Include="ICustomLoggable.cs" />
+    <Compile Include="ILogMessage{E,EX}.cs" />
     <Compile Include="ILogReader.cs" />
     <Compile Include="ILogWriter.cs" />
-    <Compile Include="LogMessage{E,EX}.cs" />
     <Compile Include="LogQuery{E,EX}.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -149,6 +152,10 @@
     <ProjectReference Include="..\IoC\IoC.csproj">
       <Project>{70f90331-b8de-4ce9-9866-79ed810e3561}</Project>
       <Name>IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mixins\Mixins.csproj">
+      <Project>{0d05724d-2b92-4f09-a53f-044e450ba106}</Project>
+      <Name>Mixins</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

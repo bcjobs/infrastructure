@@ -147,6 +147,8 @@
     <Compile Include="Entities\ELogMessage.cs" />
     <Compile Include="Entities\ELogType.cs" />
     <Compile Include="LogContext.cs" />
+    <Compile Include="LogMessage{E,EX}.cs" />
+    <Compile Include="MessageConvert.cs" />
     <Compile Include="Migrations\201511212037555_InitialCreate.cs" />
     <Compile Include="Migrations\201511212037555_InitialCreate.Designer.cs">
       <DependentUpon>201511212037555_InitialCreate.cs</DependentUpon>

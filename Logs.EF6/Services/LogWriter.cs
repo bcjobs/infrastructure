@@ -14,7 +14,9 @@ using System.Threading.Tasks;
 namespace Logs.EF6.Services
 {
     public class LogWriter : 
-        ILogWriter, 
+        ILogWriter,
+        IHandler<ILoggable>,
+        IHandler<ICustomLoggable>,
         IHandler<If<ILoggable<Unhandled>, Unhandled>>,
         IHandler<If<ILoggable<Succeeded>, Succeeded>>,
         IHandler<If<ILoggable<Failed>, Failed>>
@@ -44,12 +46,12 @@ namespace Logs.EF6.Services
                     ApiKey = Authenticator.ApiKey,
                     ClientIP = Authenticator.ClientIP.ToString(),
 
-                    EventJson = e == null ? null : JsonConvert.SerializeObject(e, JsonSettings),
+                    EventJson = e.ToJson(),
                     EventTypes = new ImplementedTypes(e)
                         .Select(t => new ELogType { Name = t.FullName })
                         .ToList(),
 
-                    ExceptionJson = ex == null ? null : JsonConvert.SerializeObject(ex, JsonSettings),
+                    ExceptionJson = ex.ToJson(),
                     ExceptionTypes = new ImplementedTypes(ex)
                         .Select(t => new ELogType { Name = t.FullName })
                         .ToList()
@@ -77,7 +79,16 @@ namespace Logs.EF6.Services
             return true;
         }
 
-        JsonSerializerSettings JsonSettings => 
-            new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+        public async Task<bool> HandleAsync(ILoggable e)
+        {
+            Write<object, Exception>(e, null);
+            return true;
+        }
+
+        public async Task<bool> HandleAsync(ICustomLoggable e)
+        {
+            Write(e.Event, e.Exception);
+            return true;
+        }
     }
 }

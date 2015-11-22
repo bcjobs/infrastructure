@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logs
 {
-    public interface ILogReader
+    public interface ILoggable
     {
-        IEnumerable<ILogMessage<E, EX>> Read<E, EX>(LogQuery<E, EX> query)
-            where EX : Exception;
     }
 }

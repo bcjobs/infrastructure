@@ -13,6 +13,13 @@ namespace Mixins.Tests
             Assert.AreEqual(1, mixin.GetA());
             Assert.AreEqual(2, mixin.GetB());
         }
+
+        [TestMethod]
+        public void ImplementGenericMethod()
+        {
+            var mixin = Mixin.Create<IGenericMixin>(new GenericReader());
+            Assert.AreEqual(22, mixin.Read(22));
+        }
     }
 
     public interface IA
@@ -43,5 +50,19 @@ namespace Mixins.Tests
         {
             return 2;
         }
+    }
+
+    public interface IGenericReader
+    {
+        T Read<T>(T value);
+    }
+
+    public class GenericReader : IGenericReader
+    {
+        public T Read<T>(T value) => value;
+    }
+
+    public interface IGenericMixin : IGenericReader
+    {
     }
 }

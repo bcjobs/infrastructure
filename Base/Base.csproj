@@ -134,6 +134,7 @@
     <Compile Include="PaginatedQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SystemClock.cs" />
+    <Compile Include="TimeQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IoC\IoC.csproj">

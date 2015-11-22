@@ -72,7 +72,25 @@ namespace Mixins
                     mi.ReturnType,
                     mi.GetParameters().Select(p => p.ParameterType).ToArray());
 
-                mb.SetReturnType(mi.ReturnType);
+                if (mi.IsGenericMethod)
+                {
+                    var gas = mi
+                        .GetGenericArguments();
+
+                    var gtpbs = mb.DefineGenericParameters(gas
+                        .Select(t => t.Name)
+                        .ToArray());
+
+                    for (int i = 0; i < gas.Length; i++)
+                    {
+                        var ga = gas[i];
+                        var gtpb = gtpbs[i];
+                        gtpb.SetGenericParameterAttributes(ga.GenericParameterAttributes);                        
+                        gtpb.SetInterfaceConstraints(ga.GetGenericParameterConstraints());                        
+                    }
+                }       
+                    
+                mb.SetReturnType(mi.ReturnType);                
 
                 // Emit method body
                 ILGenerator il = mb.GetILGenerator();
