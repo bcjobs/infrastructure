@@ -31,7 +31,8 @@ namespace Authentications
 
         public static bool IsImpersonated(this IAuthenticator authenticator)
         {
-            return authenticator.UserId != authenticator.ImpersonatorId;
+            return authenticator.IsAuthenticated() &&
+                authenticator.UserId != authenticator.ImpersonatorId;
         }
     }
 }
