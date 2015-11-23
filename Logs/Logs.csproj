@@ -138,6 +138,7 @@
     <Compile Include="ILogReader.cs" />
     <Compile Include="ILogWriter.cs" />
     <Compile Include="LogQuery{E,EX}.cs" />
+    <Compile Include="LoggerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
