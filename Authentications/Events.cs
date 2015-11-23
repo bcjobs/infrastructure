@@ -16,9 +16,9 @@ namespace Authentifications
     {
     }
 
-    public class SessionStarted : SessionAction
+    public class SessionStart : SessionAction
     {
-        public SessionStarted(string userId)
+        public SessionStart(string userId)
         {
             Contract.Requires<ArgumentNullException>(userId != null);
             Contract.Ensures(UserId != null);
@@ -28,9 +28,9 @@ namespace Authentifications
         public string UserId { get; }
     }
 
-    public class SessionImpersonated : SessionAction
+    public class SessionImpersonation : SessionAction
     {
-        public SessionImpersonated(string userId, string impersonatorId)
+        public SessionImpersonation(string userId, string impersonatorId)
         {
             Contract.Requires<ArgumentNullException>(userId != null);
             Contract.Requires<ArgumentNullException>(impersonatorId != null);
@@ -44,9 +44,9 @@ namespace Authentifications
         public string ImpersonatorId { get; }
     }
 
-    public class SessionTerminated : SessionAction
+    public class SessionTermination : SessionAction
     {
-        public SessionTerminated(string userId)
+        public SessionTermination(string userId)
         {
             Contract.Requires<ArgumentNullException>(userId != null);
             Contract.Ensures(UserId != null);
@@ -72,9 +72,9 @@ namespace Authentifications
         public string UserId { get; }
     }
 
-    public class PasswordChanged : PasswordAction
+    public class PasswordChange : PasswordAction
     {
-        public PasswordChanged(string userId)
+        public PasswordChange(string userId)
         {
             Contract.Requires<ArgumentNullException>(userId != null);
             Contract.Ensures(UserId != null);
@@ -84,9 +84,9 @@ namespace Authentifications
         public string UserId { get; }
     }
 
-    public class PasswordTokenCreated : PasswordAction
+    public class PasswordTokenCreation : PasswordAction
     {
-        public PasswordTokenCreated(string userId)
+        public PasswordTokenCreation(string userId)
         {
             Contract.Requires<ArgumentNullException>(userId != null);
             Contract.Ensures(UserId != null);
@@ -96,9 +96,9 @@ namespace Authentifications
         public string UserId { get; }
     }
 
-    public class PasswordCreated : PasswordAction
+    public class PasswordCreation : PasswordAction
     {
-        public PasswordCreated(string userId)
+        public PasswordCreation(string userId)
         {
             Contract.Requires<ArgumentNullException>(userId != null);
             Contract.Ensures(UserId != null);

@@ -40,7 +40,57 @@ namespace Events
         }
 
         [DebuggerHidden]
-        public static async Task ExecuteAsync<T>(this T e)
+        public static IEventScope Start<E>(this E e)
+        {
+            Contract.Requires<ArgumentNullException>(e != null);
+            Contract.Ensures(Contract.Result<IEventScope>() != null);
+            return new EventScope<E>(e);
+        }
+
+        class EventScope<E> : IEventScope
+        {
+            public EventScope(E e)
+            {
+                Contract.Requires<ArgumentNullException>(e != null);
+                Contract.Ensures(Event != null);
+                Event = e;
+            }
+
+            E Event { get; }
+            HashSet<Exception> Exceptions { get; } = new HashSet<Exception>();
+
+            public async void Dispose()
+            {
+                Exception[] exceptions;
+                lock(Exceptions)
+                    exceptions = Exceptions.ToArray();
+
+                switch (exceptions.Length)
+                {
+                    case 0:
+                        await Subscription.NotifyAsync(new Notification<E, Succeeded>(Event));
+                        break;
+                        
+                    case 1:
+                        await Subscription.NotifyAsync(new Notification<E, Succeeded>(Event, exceptions[0]));
+                        break;
+
+                    default:
+                        await Subscription.NotifyAsync(new Notification<E, Succeeded>(Event, new AggregateException(exceptions)));
+                        break;
+                };
+            }
+
+            public void Fail(Exception ex)
+            {
+                lock(Exceptions)
+                    Exceptions.Add(ex);
+            }
+        }
+
+
+        [DebuggerHidden]
+        public static async Task SendAsync<T>(this T e)
         {
             Contract.Requires<ArgumentNullException>(e != null);
             Contract.Ensures(Contract.Result<Task>() != null);
@@ -50,12 +100,26 @@ namespace Events
         }
 
         [DebuggerHidden]
-        public static Task<bool> FailAsync<E,EX>(this E e, EX ex) 
+        public static async Task SendAsync<T, EX>(this T e, EX ex)
             where EX : Exception
         {
             Contract.Requires<ArgumentNullException>(e != null);
             Contract.Requires<ArgumentNullException>(ex != null);
-            return Subscription.NotifyAsync(new Notification<E, Failed>(e, ex));
+            Contract.Ensures(Contract.Result<Task>() != null);
+
+            if (!await RaiseAsync(e))
+                throw new NotImplementedException("Required " + typeof(T).Name + " event handler is not registered.");
+        }
+
+        [DebuggerHidden]
+        public async static Task<bool> RaiseAsync<T, EX>(this T e, EX ex)
+            where EX : Exception
+        {
+            Contract.Requires<ArgumentNullException>(e != null);
+            Contract.Requires<ArgumentNullException>(ex != null);
+            Contract.Ensures(Contract.Result<Task<bool>>() != null);
+
+            return await Subscription.NotifyAsync(new Notification<T, Failed>(e, ex));
         }
 
         [DebuggerHidden]

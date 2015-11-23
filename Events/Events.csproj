@@ -129,6 +129,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IEventScope.cs" />
     <Compile Include="If{T,R}.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="IHandler{T}.cs" />

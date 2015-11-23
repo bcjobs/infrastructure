@@ -217,10 +217,6 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Authentications.Identity\Authentications.Identity.csproj">
-      <Project>{b73398e3-6d6a-4cf1-b51a-35289068a869}</Project>
-      <Name>Authentications.Identity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Authentications\Authentications.csproj">
       <Project>{0114898a-afcb-409c-935c-815d66b8055b}</Project>
       <Name>Authentications</Name>

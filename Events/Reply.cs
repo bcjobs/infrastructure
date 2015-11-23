@@ -81,7 +81,7 @@ namespace Events
             Contract.Ensures(Contract.Result<Task>() != null);
 
             using (Event.Subscribe(new ReplayFilter<TOriginal, T1>(original, h1)))
-                await original.ExecuteAsync();
+                await original.SendAsync();
         }
         
         public static async Task RequestAsync<TOriginal, T1, T2>(this TOriginal original, 
@@ -95,7 +95,7 @@ namespace Events
 
             using (Event.Subscribe(new ReplayFilter<TOriginal, T1>(original, h1)))
             using (Event.Subscribe(new ReplayFilter<TOriginal, T2>(original, h2)))
-                await original.ExecuteAsync();
+                await original.SendAsync();
         }
 
         public static async Task RequestAsync<TOriginal, T1, T2, T3>(this TOriginal original, 
@@ -112,7 +112,7 @@ namespace Events
             using (Event.Subscribe(new ReplayFilter<TOriginal, T1>(original, h1)))
             using (Event.Subscribe(new ReplayFilter<TOriginal, T2>(original, h2)))
             using (Event.Subscribe(new ReplayFilter<TOriginal, T3>(original, h3)))
-                await original.ExecuteAsync();
+                await original.SendAsync();
         }
 
         public static async Task RequestAsync<TOriginal, T1, T2, T3, T4>(this TOriginal original, 
@@ -132,7 +132,7 @@ namespace Events
             using (Event.Subscribe(new ReplayFilter<TOriginal, T2>(original, h2)))
             using (Event.Subscribe(new ReplayFilter<TOriginal, T3>(original, h3)))
             using (Event.Subscribe(new ReplayFilter<TOriginal, T4>(original, h4)))
-                await original.ExecuteAsync();
+                await original.SendAsync();
         }
     }
 
