@@ -26,14 +26,7 @@ This repository contains a collection of _infrastructure_ projects that should b
 * Add the following NuGet packages to the web project:
   * Microsoft.AspNet.Identity.EntityFramework
   * Microsoft.AspNet.Identity.OWIN
-* Add a Handler for UserIdLookup
-  * Example: https://github.com/bcjobs/prototype/blob/master/UI.Web/Services/Implementation/UserDirectory.cs
-  * Ensure that the class namespace ends with `Services.Implementation` so that Autofac can find it (as defined above in `Autofac Config`).
-* Add `Identity` connection string in `web.config`.
-  * Example: https://github.com/bcjobs/prototype/blob/master/UI.Web/Web.config
-* Run EF migrations from:
-  * https://github.com/bcjobs/infrastructure/blob/master/Infrastructure.Security/Migrations/201508290037057_InitialCreate.cs 
-  * To do this:
-    * open Package Manager Console (Tools --> Nuget Package Manager --> Package Manager Console)
-    * Make sure `Default project` is `Infrastructure\Infrastructure.Security`
-    * Run the command `Update-Database`
+* Implement Authentications.IUserLookup
+  * Example: https://github.com/bcjobs/demo/blob/master/Demo.Web/Services/UserLookup.cs
+* Add `AuthenticationsIdentity` connection string in `web.config`.
+  * Example: https://github.com/bcjobs/demo/blob/master/Demo.Web/Web.config
