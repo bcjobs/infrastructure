@@ -12,7 +12,7 @@ namespace Logs
         where EX : Exception
     {
         DateTime LoggedAt { get; }
-        AuthentificationSnapshot AuthentificationSnapshot { get; }
+        AuthenticationSnapshot AuthenticationSnapshot { get; }
         E Event { get; }
         EX Exception { get; }
     }
@@ -21,11 +21,11 @@ namespace Logs
     abstract class LogMessageContract<E, EX> : ILogMessage<E, EX>
         where EX : Exception
     {
-        public AuthentificationSnapshot AuthentificationSnapshot
+        public AuthenticationSnapshot AuthenticationSnapshot
         {
             get
             {
-                Contract.Ensures(Contract.Result<AuthentificationSnapshot>() != null);
+                Contract.Ensures(Contract.Result<AuthenticationSnapshot>() != null);
                 throw new NotImplementedException();
             }
         }

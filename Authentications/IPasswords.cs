@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authentifications
+namespace Authentications
 {
     [ContractClass(typeof(PasswordsContract))]
     public interface IPasswords

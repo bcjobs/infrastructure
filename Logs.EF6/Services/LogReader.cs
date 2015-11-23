@@ -34,7 +34,7 @@ namespace Logs.EF6.Services
                     .AsEnumerable()
                     .Select(m => new LogMessage<E, EX>(
                             m.LoggedAt,
-                            new AuthentificationSnapshot(
+                            new AuthenticationSnapshot(
                                 m.UserId,
                                 m.ImpersonatorId,
                                 m.ApiKey,

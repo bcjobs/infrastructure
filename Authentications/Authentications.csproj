@@ -7,8 +7,8 @@
     <ProjectGuid>{0114898A-AFCB-409C-935C-815D66B8055B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Authentifications</RootNamespace>
-    <AssemblyName>Authentifications</AssemblyName>
+    <RootNamespace>Authentications</RootNamespace>
+    <AssemblyName>Authentications</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>

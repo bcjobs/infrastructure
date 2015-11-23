@@ -11,7 +11,7 @@ using Demo.Web.Test.Services;
 using Logs;
 using System.Diagnostics.Contracts;
 using System.Web;
-using Authentifications;
+using Authentications;
 
 namespace Demo.Web.Controllers
 {    

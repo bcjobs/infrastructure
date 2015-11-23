@@ -129,7 +129,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthentificationSnapshot.cs" />
+    <Compile Include="AuthenticationSnapshot.cs" />
     <Compile Include="ILog.cs" />
     <Compile Include="ILoggable.cs" />
     <Compile Include="ILoggable{R}.cs" />

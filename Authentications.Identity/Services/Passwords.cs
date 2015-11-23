@@ -1,4 +1,4 @@
-﻿using Authentifications;
+﻿using Authentications;
 using Base;
 using System;
 using System.Collections.Generic;

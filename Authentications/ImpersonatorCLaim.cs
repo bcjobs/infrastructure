@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authentifications
+namespace Authentications
 {
     public static class ImpersonatorClaim
     {

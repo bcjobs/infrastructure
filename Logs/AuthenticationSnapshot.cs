@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Logs
 {
-    public class AuthentificationSnapshot
+    public class AuthenticationSnapshot
     {
-        public AuthentificationSnapshot(string userId, string impersonatorId, string apiKey, IPAddress clientIP)
+        public AuthenticationSnapshot(string userId, string impersonatorId, string apiKey, IPAddress clientIP)
         {
             UserId = userId;
             ImpersonatorId = impersonatorId;

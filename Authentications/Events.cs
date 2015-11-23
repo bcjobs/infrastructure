@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authentifications
+namespace Authentications
 {
-    public abstract class AuthentificationAction : ILoggable
+    public abstract class AuthenticationAction : ILoggable
     {
     }
 
-    public abstract class SessionAction : AuthentificationAction
+    public abstract class SessionAction : AuthenticationAction
     {
     }
 
@@ -56,7 +56,7 @@ namespace Authentifications
         public string UserId { get; }
     }
 
-    public abstract class PasswordAction : AuthentificationAction
+    public abstract class PasswordAction : AuthenticationAction
     {
     }
 

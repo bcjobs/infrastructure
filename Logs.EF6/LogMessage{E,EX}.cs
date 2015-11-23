@@ -13,22 +13,22 @@ namespace Logs.EF6
     {
         public LogMessage(
             DateTime loggedAt,
-            AuthentificationSnapshot authentificationSnapshot,
+            AuthenticationSnapshot authenticationSnapshot,
             E e,
             EX ex)
         {
-            Contract.Requires<ArgumentNullException>(authentificationSnapshot != null);
+            Contract.Requires<ArgumentNullException>(authenticationSnapshot != null);
             Contract.Requires<ArgumentNullException>(e != null || ex != null);
-            Contract.Ensures(AuthentificationSnapshot != null);
+            Contract.Ensures(AuthenticationSnapshot != null);
             Contract.Ensures(e != null || ex != null);
             LoggedAt = loggedAt;
-            AuthentificationSnapshot = authentificationSnapshot;
+            AuthenticationSnapshot = authenticationSnapshot;
             Event = e;
             Exception = ex;
         }
 
         public DateTime LoggedAt { get; }
-        public AuthentificationSnapshot AuthentificationSnapshot { get; }
+        public AuthenticationSnapshot AuthenticationSnapshot { get; }
         public E Event { get; }
         public EX Exception { get; }
     }
