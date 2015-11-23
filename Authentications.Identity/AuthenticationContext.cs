@@ -5,17 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using Authentications.Identity.Migrations;
 
 namespace Authentications.Identity
 {
     class AuthenticationContext : IdentityDbContext<AuthenticationUser>
     {
-        public AuthenticationContext() :  base("Name=AuthenticationIdentity") { }
-
         static AuthenticationContext()
         {
-            Database.SetInitializer<AuthenticationContext>(new NullDatabaseInitializer<AuthenticationContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AuthenticationContext, Configuration>());
         }
+
+        public AuthenticationContext() :  base("Name=AuthenticationIdentity") { }
 
         public static AuthenticationContext Create()
         {
