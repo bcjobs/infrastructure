@@ -12,7 +12,7 @@ namespace Authentifications
     public interface ISessions
     {
         Task SignInAsync(MailAddress email, string password);
-        Task ImpersonateAsync(string userId);
+        Task ImpersonateAsync(string userId, string impersonatorId);
         Task SignOutAsync();
     }
 
@@ -27,7 +27,7 @@ namespace Authentifications
             throw new NotImplementedException();
         }
 
-        public Task ImpersonateAsync(string userId)
+        public Task ImpersonateAsync(string userId, string impersonatorId)
         {
             Contract.Requires<ArgumentNullException>(userId != null);
             Contract.Ensures(Contract.Result<Task>() != null);

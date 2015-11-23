@@ -132,6 +132,8 @@
     <Compile Include="AuthenticationException.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="IAuthenticator.cs" />
+    <Compile Include="ImpersonatorClaim.cs" />
+    <Compile Include="InvalidCredentialsException.cs" />
     <Compile Include="IPasswords.cs" />
     <Compile Include="ISessions.cs" />
     <Compile Include="IUserLookup.cs" />

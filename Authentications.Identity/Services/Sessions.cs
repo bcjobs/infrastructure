@@ -5,24 +5,56 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System.Security.Claims;
 
 namespace Authentications.Identity.Services
 {
     public class Sessions : ISessions
     {
-        public Task ImpersonateAsync(string userId)
+        public Sessions(IUserLookup userLookup)
         {
-            throw new NotImplementedException();
+            UserLookup = userLookup;
         }
 
-        public Task SignInAsync(MailAddress email, string password)
+        IUserLookup UserLookup { get; }
+
+        public async Task ImpersonateAsync(string userId, string impersonatorId)
         {
-            throw new NotImplementedException();
+            var user = await IdentityManagers.GetOrCreateAsync(userId);
+
+            var identity = await IdentityManagers.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            identity.AddImpersonatorId(impersonatorId);
+            IdentityManagers.AuthenticationManager.SignIn(new AuthenticationProperties
+            {
+                IsPersistent = false
+            }, identity);
+
+            System.Threading.Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
+        }
+
+        public async Task SignInAsync(MailAddress email, string password)
+        {
+            var userId = UserLookup.UserId(email);
+
+            var user = await IdentityManagers.UserManager.FindAsync(userId.ToString(), password);
+            if (user == null)
+                throw new InvalidCredentialsException();
+
+            var identity = await IdentityManagers.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            IdentityManagers.AuthenticationManager.SignIn(new AuthenticationProperties
+            {
+                IsPersistent = false
+            }, identity);
+
+            System.Threading.Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
         }
 
         public Task SignOutAsync()
         {
-            throw new NotImplementedException();
+            IdentityManagers.AuthenticationManager.SignOut();
+            return Task.CompletedTask;
         }
     }
 }
