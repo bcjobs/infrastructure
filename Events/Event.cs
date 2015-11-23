@@ -50,6 +50,15 @@ namespace Events
         }
 
         [DebuggerHidden]
+        public static Task<bool> FailAsync<E,EX>(this E e, EX ex) 
+            where EX : Exception
+        {
+            Contract.Requires<ArgumentNullException>(e != null);
+            Contract.Requires<ArgumentNullException>(ex != null);
+            return Subscription.NotifyAsync(new Notification<E, Failed>(e, ex));
+        }
+
+        [DebuggerHidden]
         public async static Task<bool> RaiseAsync<T>(this T e)
         {
             Contract.Requires<ArgumentNullException>(e != null);
