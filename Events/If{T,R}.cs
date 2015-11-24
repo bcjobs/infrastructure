@@ -37,6 +37,18 @@ namespace Events
         }
     }
 
+    class Notification
+    {
+        public static If<object, R> Create<R>(object e, Exception ex = null)
+            where R : Result
+        {
+            var eType = e?.GetType() ?? typeof(object);
+            var rType = typeof(R);
+            var type = typeof(Notification<,>).MakeGenericType(eType, rType);
+            return (If<object, R>)Activator.CreateInstance(type, e, ex);
+        }
+    }
+
     class Notification<T, R> : If<T, R>
         where R : Result
     {

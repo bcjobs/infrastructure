@@ -25,9 +25,9 @@ namespace IoC.Tests
             var types = Types.Local.KindOf("Services")
                 .ToArray();
 
-            CollectionAssert.AreEqual(
-                new[] { typeof(ServiceType) },
-                types);
+            Assert.IsTrue(
+                types.All(
+                    t => t.Namespace.EndsWith("Services")));
         }
 
         [TestMethod]

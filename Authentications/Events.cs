@@ -1,4 +1,5 @@
-﻿using Logs;
+﻿using Events;
+using Logs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace Authentications
 {
     public abstract class AuthenticationAction : ILoggable
-    {
+    {        
     }
 
     public abstract class SessionAction : AuthenticationAction

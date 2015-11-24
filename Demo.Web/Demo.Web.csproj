@@ -235,7 +235,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Authenticator.cs" />
     <Compile Include="Services\UserLookup.cs" />
-    <Compile Include="Test\Meeting.cs" />
+    <Compile Include="Test\IGreeter.cs" />
     <Compile Include="Test\Services\Greeter.cs" />
   </ItemGroup>
   <ItemGroup>

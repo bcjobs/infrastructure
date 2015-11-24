@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Events.Dispatching;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -7,31 +8,41 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logs
-{
-    class LoggerFactory
+namespace Events
+{    
+    public class WrapperFactory
     {
-        public LoggerFactory(Type serviceType)
+        public static T Create<T>(T service)
         {
-            Contract.Requires<ArgumentNullException>(serviceType != null);
-            Contract.Requires<ArgumentNullException>(serviceType.IsInterface);
-            ServiceType = serviceType;
+            var factory = new WrapperFactory(typeof(T));
+            var type = factory.Emit();
+            return (T)Activator.CreateInstance(type, service);
         }
 
-        public Type Emit()
+        public static Type Emit(Type interfaceType)
+        {
+            var factory = new WrapperFactory(interfaceType);
+            return factory.Emit();
+        }
+
+        public WrapperFactory(Type interfaceType)
+        {
+            Contract.Requires<ArgumentNullException>(interfaceType != null);
+            Contract.Requires<ArgumentNullException>(interfaceType.IsInterface);
+            ServiceInterface = interfaceType;
+        }
+
+        Type Emit()
         {
             Contract.Ensures(Contract.Result<Type>() != null);
-
             var tb = TypeBuilder();
             var fb = FieldBuilder(tb);
             DefineConstructor(tb, fb);
-            //foreach (var fb in fbs)
-            //    DelegateTo(tb, fb);
-
+            DelegateTo(tb, fb);
             return tb.CreateType();
         }
-
-        Type ServiceType { get; }
+                
+        Type ServiceInterface { get; }
 
         void DefineConstructor(TypeBuilder tb, FieldBuilder fb)
         {
@@ -59,7 +70,9 @@ namespace Logs
             Contract.Requires<ArgumentNullException>(tb != null);
             Contract.Requires<ArgumentNullException>(fi != null);
 
-            foreach (var mi in fi.FieldType.GetMethods())
+            foreach (var mi in
+                fi.FieldType.GetMethods().Concat(
+                    fi.FieldType.GetInterfaces().SelectMany(i => i.GetMethods())))
             {
                 var mb = tb.DefineMethod(
                     mi.Name,
@@ -86,17 +99,56 @@ namespace Logs
                 }       
                     
                 mb.SetReturnType(mi.ReturnType);                
-
+                
                 // Emit method body
                 ILGenerator il = mb.GetILGenerator();
-                il.Emit(OpCodes.Ldarg_0);
-                il.Emit(OpCodes.Ldfld, fi);
+                                
+                 // .locals
+                var scopeType = typeof(EventScope);
+                var exceptionType = typeof(Exception);
+                var scope = il.DeclareLocal(scopeType);
+                var exception = il.DeclareLocal(exceptionType);
+                il.Emit(OpCodes.Newobj, scopeType.GetConstructor(new Type[0]));
+                il.Emit(OpCodes.Stloc, scope);
+
+                // try {
+                il.BeginExceptionBlock();
 
                 // Call with same parameters
+                il.Emit(OpCodes.Ldarg_0);
+                il.Emit(OpCodes.Ldfld, fi);
                 for (int i = 0; i < mi.GetParameters().Length; i++)
                     il.Emit(OpCodes.Ldarg, i + 1);
-
                 il.Emit(OpCodes.Callvirt, mi);
+
+                // Call s.Complete();
+                var complete = scopeType.GetMethod("Complete");
+                il.Emit(OpCodes.Nop);
+                il.Emit(OpCodes.Ldloc, scope);
+                il.Emit(OpCodes.Callvirt, complete);
+                il.Emit(OpCodes.Nop);
+                il.Emit(OpCodes.Nop);
+
+                // Return
+                il.Emit(OpCodes.Ret);
+
+                // } catch {
+                il.BeginCatchBlock(typeof(Exception));
+
+                // Call s.Fail(ex);
+                var fail = scopeType.GetMethod("Fail");
+                il.Emit(OpCodes.Stloc_1);
+                il.Emit(OpCodes.Nop);
+                il.Emit(OpCodes.Ldloc, scope);
+                il.Emit(OpCodes.Ldloc_1);
+                il.Emit(OpCodes.Callvirt, fail);
+                il.Emit(OpCodes.Nop);
+                il.Emit(OpCodes.Rethrow);
+
+                // } // catch
+                il.EndExceptionBlock();
+
+                // return
                 il.Emit(OpCodes.Ret);
             }
         }
@@ -108,14 +160,14 @@ namespace Logs
                 new[] { fb.FieldType });
 
         FieldBuilder FieldBuilder(TypeBuilder tb) => tb
-            .DefineField("_i", ServiceType, FieldAttributes.Private);
+            .DefineField("_s", ServiceInterface, FieldAttributes.Private);
 
         TypeBuilder TypeBuilder() => ModuleBuilder()
             .DefineType(
                 Guid.NewGuid().ToString(),
                 TypeAttributes.Class | TypeAttributes.Public,
                 typeof(object),
-                new[] { ServiceType });
+                new[] { ServiceInterface });
         
         ModuleBuilder ModuleBuilder() => AssemblyBuilder()
             .DefineDynamicModule(Guid.NewGuid().ToString());

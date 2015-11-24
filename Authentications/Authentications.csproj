@@ -144,6 +144,10 @@
       <Project>{b120d3b2-b734-4a4c-98bc-9d03abcf5419}</Project>
       <Name>Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Events\Events.csproj">
+      <Project>{1f945abe-f634-4a2b-9ea5-52c7696cbc94}</Project>
+      <Name>Events</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IoC\IoC.csproj">
       <Project>{70f90331-b8de-4ce9-9866-79ed810e3561}</Project>
       <Name>IoC</Name>

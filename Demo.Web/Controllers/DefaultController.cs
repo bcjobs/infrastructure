@@ -12,33 +12,34 @@ using Logs;
 using System.Diagnostics.Contracts;
 using System.Web;
 using Authentications;
+using System.Security;
 
 namespace Demo.Web.Controllers
 {    
     public class DefaultController : ApiController
     {
-        public DefaultController(ILog log, IPasswords passwords)
+        public DefaultController(ILog log, IGreeter greeter)
         {
             Contract.Requires<ArgumentNullException>(log != null);
             Contract.Ensures(Log != null);
             Log = log;
-            Passwords = passwords;
+            Greeter = greeter;
         }
 
         ILog Log { get; }
-        IPasswords Passwords { get; }
+        IGreeter Greeter { get; }
 
-        class MyEvent : ILoggable
+        public IEnumerable<object> Get()
         {
-            public int MyProperty { get; set; }
-        }
+            try
+            {
+                var hello = Greeter.SayHello();
+            }
+            catch
+            {
 
-        public async Task<IEnumerable<ILogMessage<object, Exception>>> Get()
-        {
-            var password = await Passwords.CreateAsync("johnny");
-
-            await new InvalidOperationException().RaiseAsync();
-            return Log.Read(new LogQuery());
-        }
+            }
+            return Log.Read(new LogQuery<Greeting>());
+        }        
     }
 }

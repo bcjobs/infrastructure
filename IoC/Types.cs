@@ -56,14 +56,7 @@ namespace IoC
                 this,
                 t => t.IsClass && !t.IsAbstract);
         }
-        
-        public void ForAll(Action<Type> action)
-        {
-            Contract.Requires<ArgumentNullException>(action != null);
-            foreach (var type in this)
-                action(type);
-        }
-
+  
         public static Types operator +(Types x, Types y)
         {
             Contract.Requires<ArgumentNullException>(x != null);

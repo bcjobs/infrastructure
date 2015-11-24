@@ -9,7 +9,7 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics.Contracts;
 
-namespace Events.Dispatching.Services
+namespace Events.Dispatching
 {
     public class EventDispatcher : IEventDispatcher
     {

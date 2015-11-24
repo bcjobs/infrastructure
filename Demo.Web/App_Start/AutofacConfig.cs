@@ -22,12 +22,21 @@ namespace Demo.Web
         {
             var builder = new ContainerBuilder();
             builder.RegisterSource(new ContravariantRegistrationSource());
-            
+
             Types.Referenced.KindOf("Services")
                 .Classes()
-                .ForAll(t => builder
-                    .RegisterType(t)
-                    .AsImplementedInterfaces());
+                .ForAll(t =>
+                {
+                    builder
+                        .RegisterType(t)
+                        .AsSelf();
+                    t
+                        .GetInterfaces()                        
+                        .ForAll(i => builder
+                            .RegisterType(WrapperFactory.Emit(i))
+                            .WithParameter((pi, ctx) => true, (pi, ctx) => ctx.Resolve(t))
+                            .AsImplementedInterfaces());
+                });
 
             Types.Referenced.With<MixinAttribute>()
                 .ForAll(t => builder
@@ -38,6 +47,9 @@ namespace Demo.Web
                 .ForAll(a => builder.RegisterApiControllers(a));
 
             builder.RegisterType<ServiceProvider>()
+                .AsImplementedInterfaces();
+
+            builder.RegisterType<EventDispatcher>()
                 .AsImplementedInterfaces();
 
             var container = builder.Build();
