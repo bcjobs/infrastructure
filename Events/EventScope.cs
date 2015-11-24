@@ -31,9 +31,7 @@ namespace Events
             get { return CallContext.LogicalGetData(Slot); }
             set
             {
-                CallContext.LogicalSetData(Slot, value);
-                if (ContextEvent != null && ContextEvent != Empty)
-                    Event.NotifyAsync(value);                
+                CallContext.LogicalSetData(Slot, value);                                
             }
         }
 
@@ -41,18 +39,18 @@ namespace Events
 
         public async void Complete()
         {
-            if (ContextEvent != Empty && ContextEvent != null)
-                await Event.NotifyAsync<Succeeded>(ContextEvent);
-
+            var e = ContextEvent;
             ContextEvent = PreviosEvent;
+            if (e != Empty && e != null)
+                await Event.NotifyAsync<Succeeded>(e);            
         }
 
         public async void Fail(Exception ex)
         {
-            if (ContextEvent != Empty && ContextEvent != null)
-                await Event.NotifyAsync<Failed>(ContextEvent, ex);
-
+            var e = ContextEvent;
             ContextEvent = PreviosEvent;
+            if (e != Empty && e != null)
+                await Event.NotifyAsync<Failed>(e, ex);            
         }         
     }    
 }

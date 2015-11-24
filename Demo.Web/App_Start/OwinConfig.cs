@@ -12,7 +12,7 @@ namespace Demo.Web.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
-            app.SendAsync().Wait();
+            app.RaiseAsync().Wait();
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
             //app.UseFacebookAuthentication(new FacebookAuthenticationOptions

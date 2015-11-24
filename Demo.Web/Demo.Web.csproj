@@ -236,7 +236,9 @@
     <Compile Include="Services\Authenticator.cs" />
     <Compile Include="Services\UserLookup.cs" />
     <Compile Include="Test\IGreeter.cs" />
+    <Compile Include="Test\IGreetingHandler.cs" />
     <Compile Include="Test\Services\Greeter.cs" />
+    <Compile Include="Test\Services\GreetingHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

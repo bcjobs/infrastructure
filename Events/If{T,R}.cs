@@ -31,7 +31,7 @@ namespace Events
         {
             get
             {
-                Contract.Ensures(Contract.Result<T>() != null);
+                //Contract.Ensures(Contract.Result<T>() != null);
                 throw new NotImplementedException();
             }
         }
@@ -54,8 +54,8 @@ namespace Events
     {
         public Notification(T subject, Exception exception = null)
         {
-            Contract.Requires<ArgumentNullException>(subject != null);
-            Contract.Ensures(Subject != null);
+            Contract.Requires<ArgumentNullException>(subject != null || exception != null);
+            Contract.Ensures(Subject != null || exception != null);
             Subject = subject;
             Exception = exception;
         }

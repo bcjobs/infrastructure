@@ -95,6 +95,7 @@ namespace Events
             if (EventScope.ContextEvent != EventScope.Empty)
                 return false;
 
+            NotifyAsync(e);
             EventScope.ContextEvent = e;            
             return true;
         }

@@ -49,12 +49,9 @@ namespace Demo.Web
             builder.RegisterType<ServiceProvider>()
                 .AsImplementedInterfaces();
 
-            builder.RegisterType<EventDispatcher>()
-                .AsImplementedInterfaces();
-
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            Event.Subscribe(container.Resolve<IEventDispatcher>());
+            Event.Subscribe(new EventDispatcher(container.Resolve<IServiceProvider>()));
         }
     }
 

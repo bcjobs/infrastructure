@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using Events;
 
 namespace Demo.Web.Services
 {
@@ -13,6 +14,10 @@ namespace Demo.Web.Services
         public string ApiKey => null;
         public IPAddress ClientIP => IPAddress.None;            
         public string ImpersonatorId => null;            
-        public string UserId => null;
+        public string UserId {
+            get {
+                return "Dima";
+            }
+        }
     }
 }
