@@ -13,7 +13,7 @@ namespace Demo.Web.Test
         string SayHello();
     }
 
-    public class Greeting : ILoggable<Succeeded>, ILoggable<Failed>
+    public class Greeting : ILoggable, ILoggable<Succeeded>, ILoggable<Failed>, ILoggable<Unhandled>
     {
         public Greeting(string text)
         {

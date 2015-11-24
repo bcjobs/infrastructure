@@ -12,7 +12,7 @@ namespace Demo.Web.Test.Services
         public string SayHello()
         {
             new Greeting("Hello World").Implement();
-            throw new NotImplementedException("Just a test");
+            //throw new NotImplementedException("Just a test");
             return "Hello World";
         }
     }

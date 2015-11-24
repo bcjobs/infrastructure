@@ -1,5 +1,6 @@
 ﻿using Demo.Web.Services;
 using Events;
+using Logs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
