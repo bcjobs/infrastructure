@@ -14,7 +14,7 @@ This repository contains a collection of _infrastructure_ projects that should b
  
 ## Autofac Config
 * Register all IHandlers in Infrastructure and web project with Autofac
-* Example: https://github.com/bcjobs/prototype/blob/master/UI.Web/App_Start/AutofacConfig.cs
+* Example: https://github.com/bcjobs/infrastructure/blob/master/Demos/Demo.Web/App_Start/AutofacConfig.cs
  
 ## Identity
 * Create OwinConfig:
@@ -26,7 +26,9 @@ This repository contains a collection of _infrastructure_ projects that should b
 * Add the following NuGet packages to the web project:
   * Microsoft.AspNet.Identity.EntityFramework
   * Microsoft.AspNet.Identity.OWIN
-* Implement Authentications.IUserLookup
-  * Example: https://github.com/bcjobs/demo/blob/master/Demo.Web/Services/UserLookup.cs
+* Implement Infra.Authentications.IUserLookup
+  * Example: https://github.com/bcjobs/infrastructure/blob/master/Demos/Demo.Web/Services/UserLookup.cs
+* Implement Infra.Authentications.IAuthenticator
+  * Example: https://github.com/bcjobs/infrastructure/blob/master/Demos/Demo.Web/Services/Authenticator.cs
 * Add `AuthenticationsIdentity` connection string in `web.config`.
-  * Example: https://github.com/bcjobs/demo/blob/master/Demo.Web/Web.config
+  * Example: https://github.com/bcjobs/infrastructure/blob/master/Demos/Demo.Web/Web.config
