@@ -191,6 +191,10 @@
     <Compile Include="Migrations\201511230631353_Initial.Designer.cs">
       <DependentUpon>201511230631353_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511251843085_RoleManagement.cs" />
+    <Compile Include="Migrations\201511251843085_RoleManagement.Designer.cs">
+      <DependentUpon>201511251843085_RoleManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OwinConfigurator.cs" />
@@ -204,6 +208,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201511230631353_Initial.resx">
       <DependentUpon>201511230631353_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511251843085_RoleManagement.resx">
+      <DependentUpon>201511251843085_RoleManagement.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
