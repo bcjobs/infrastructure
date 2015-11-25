@@ -1,0 +1,70 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Diagnostics.Contracts;
+
+namespace Infra.Events.Dispatching
+{
+    public class EventDispatcher : IEventDispatcher
+    {
+        public EventDispatcher(IServiceProvider serviceProvider)
+        {
+            Contract.Requires<ArgumentNullException>(serviceProvider != null);
+            Contract.Ensures(ServiceProvider != null);
+            ServiceProvider = serviceProvider;
+        }
+
+        IServiceProvider ServiceProvider { get; }
+
+        [DebuggerHidden]
+        public async Task<bool> HandleAsync(object e)
+        {
+            if (e == null)
+                return false;
+
+            var handlerTypes = from ct in e.GetType().GetCovariantTypes().Distinct()
+                               select ct.GetHandlerType().GetEnumerableType();
+
+            var matches = from handlerType in handlerTypes
+                          from handler in (IEnumerable<object>)ServiceProvider.GetService(handlerType)
+                          where !(handler is IEventDispatcher)
+                          let method = handler.GetType().GetMethod("HandleAsync", new[] { e.GetType() })
+                          select method.InvokeAsync(handler, e);
+
+            var task = Task.WhenAll(matches);
+            try
+            {
+                return (await task).Contains(true);
+            }
+            catch
+            {
+                if (task.Exception.InnerExceptions.Count == 1)
+                    throw task.Exception.InnerException;
+                else
+                    throw task.Exception;
+            }
+        }        
+    }
+
+    static class HandlerInvoker
+    {
+        [DebuggerHidden]
+        public static Task<bool> InvokeAsync(this MethodInfo method, object handler, object e)
+        {
+            try
+            {
+                return (Task<bool>)method.Invoke(handler, new[] { e });
+            }
+            catch(TargetInvocationException ex)
+            {
+                return Task.FromException<bool>(ex.InnerException);
+            }
+        }
+    }
+}
