@@ -5,7 +5,7 @@ using System.Linq;
 using System.IO;
 using Infra.IoC;
 
-namespace Infra.Events.Tests
+namespace Infra.IoC.Tests
 {
     [TestClass]
     public class AssembliesShould
@@ -17,7 +17,7 @@ namespace Infra.Events.Tests
                 .Select(a => Path.GetFileName(a.Location))
                 .ToArray();
 
-            CollectionAssert.Contains(names, "IoC.dll");
+            CollectionAssert.Contains(names, "Infra.IoC.dll");
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace Infra.Events.Tests
                 .Select(a => Path.GetFileName(a.Location))
                 .ToArray();
 
-            CollectionAssert.Contains(names, "IoC.Tests.Contracts.dll");
+            CollectionAssert.Contains(names, "Infra.IoC.Tests.Contracts.dll");
         }
 
         [TestMethod]
@@ -37,8 +37,8 @@ namespace Infra.Events.Tests
                 .Select(a => Path.GetFileName(a.Location))
                 .ToArray();
 
-            CollectionAssert.Contains(names, "IoC.dll");
-            CollectionAssert.Contains(names, "IoC.Tests.Contracts.dll");
+            CollectionAssert.Contains(names, "Infra.IoC.dll");
+            CollectionAssert.Contains(names, "Infra.IoC.Tests.Contracts.dll");
         }
     }
 }

@@ -15,9 +15,11 @@ namespace Infra.Events.Tests
         {
             TestService = WrapperFactory.Create<ITestService>(new TestService());
             AsyncService = WrapperFactory.Create<IAsyncService>(new AsyncService());
+            GenericService = WrapperFactory.Create<IGenericService<string>>(new GenericService<string>());
         }
 
         public static ITestService TestService { get; private set; }
         public static IAsyncService AsyncService { get; private set; }
+        public static IGenericService<string> GenericService { get; private set; }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using Infra.IoC;
 
-namespace Infra.Events.Tests
+namespace Infra.IoC.Tests
 {
     [TestClass]
     public class TypesShould
@@ -38,9 +38,9 @@ namespace Infra.Events.Tests
                 .ToArray();
 
             CollectionAssert.Contains(namespaces, "System.Diagnostics.Contracts");
-            CollectionAssert.Contains(namespaces, "IoC");
-            CollectionAssert.Contains(namespaces, "IoC.Tests");
-            CollectionAssert.Contains(namespaces, "IoC.Tests.Services");
+            CollectionAssert.Contains(namespaces, "Infra.IoC");
+            CollectionAssert.Contains(namespaces, "Infra.IoC.Tests");
+            CollectionAssert.Contains(namespaces, "Infra.IoC.Tests.Services");
         }
     }
 
