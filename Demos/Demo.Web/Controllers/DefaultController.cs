@@ -13,7 +13,9 @@ namespace Demo.Web.Controllers
         public DefaultController(ILog log, IGreeter greeter)
         {
             Contract.Requires<ArgumentNullException>(log != null);
+            Contract.Requires<ArgumentNullException>(greeter != null);
             Contract.Ensures(Log != null);
+            Contract.Ensures(Greeter != null);
             Log = log;
             Greeter = greeter;
         }

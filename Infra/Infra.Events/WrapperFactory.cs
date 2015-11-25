@@ -37,6 +37,7 @@ namespace Infra.Events
             Contract.Ensures(Contract.Result<Type>() != null);
             var tb = TypeBuilder();
             var fb = FieldBuilder(tb);
+
             DefineConstructor(tb, fb);
             DelegateTo(tb, fb);
             return tb.CreateType();

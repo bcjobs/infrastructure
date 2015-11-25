@@ -27,15 +27,22 @@ namespace Demo.Web
                 .Classes()
                 .ForAll(t =>
                 {
-                    builder
-                        .RegisterType(t)
-                        .AsSelf();
-                    t
-                        .GetInterfaces()                        
-                        .ForAll(i => builder
-                            .RegisterType(WrapperFactory.Emit(i))
-                            .WithParameter((pi, ctx) => true, (pi, ctx) => ctx.Resolve(t))
-                            .AsImplementedInterfaces());
+                    if (t.IsGenericType)
+                        builder
+                            .RegisterGeneric(t)
+                            .AsImplementedInterfaces();
+                    else
+                    {
+                        builder
+                            .RegisterType(t)
+                            .AsSelf();
+                        t
+                            .GetInterfaces()
+                            .ForAll(i => builder
+                                .RegisterType(WrapperFactory.Emit(i))
+                                .WithParameter((pi, ctx) => true, (pi, ctx) => ctx.Resolve(t))
+                                .AsImplementedInterfaces());
+                    }
                 });
 
             Types.Referenced.With<MixinAttribute>()
