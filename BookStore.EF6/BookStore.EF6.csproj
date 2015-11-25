@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B120D3B2-B734-4A4C-98BC-9D03ABCF5419}</ProjectGuid>
+    <ProjectGuid>{9CE217FB-B034-4DF4-9642-2CBFA29610BC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Base</RootNamespace>
-    <AssemblyName>Base</AssemblyName>
+    <RootNamespace>BookStore.EF6</RootNamespace>
+    <AssemblyName>BookStore.EF6</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -119,7 +120,16 @@
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -129,20 +139,67 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumerable.cs" />
-    <Compile Include="IClock.cs" />
-    <Compile Include="ImplementedTypes.cs" />
-    <Compile Include="PaginatedQuery.cs" />
+    <Compile Include="Configurations\EAuthorConfiguration.cs" />
+    <Compile Include="Configurations\EBookConfiguration.cs" />
+    <Compile Include="Entities\EAuthor.cs" />
+    <Compile Include="Entities\EBook.cs" />
+    <Compile Include="Migrations\201511242234491_Initial.cs" />
+    <Compile Include="Migrations\201511242234491_Initial.Designer.cs">
+      <DependentUpon>201511242234491_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511242358423_BridgeTableUpdate.cs" />
+    <Compile Include="Migrations\201511242358423_BridgeTableUpdate.Designer.cs">
+      <DependentUpon>201511242358423_BridgeTableUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomString.cs" />
-    <Compile Include="Services\SystemClock.cs" />
-    <Compile Include="TimeQuery.cs" />
+    <Compile Include="Services\BookReader.cs" />
+    <Compile Include="Services\BookWriter.cs" />
+    <Compile Include="StoreContext.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Authentications\Authentications.csproj">
+      <Project>{0114898a-afcb-409c-935c-815d66b8055b}</Project>
+      <Name>Authentications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{b120d3b2-b734-4a4c-98bc-9d03abcf5419}</Project>
+      <Name>Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookStore\BookStore.csproj">
+      <Project>{732959c1-27e3-4861-92c6-e95ef7023298}</Project>
+      <Name>BookStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Events\Events.csproj">
+      <Project>{1f945abe-f634-4a2b-9ea5-52c7696cbc94}</Project>
+      <Name>Events</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IoC\IoC.csproj">
       <Project>{70f90331-b8de-4ce9-9866-79ed810e3561}</Project>
       <Name>IoC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logs\Logs.csproj">
+      <Project>{36757b22-00e5-464c-b946-3cfc03184576}</Project>
+      <Name>Logs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mixins\Mixins.csproj">
+      <Project>{0d05724d-2b92-4f09-a53f-044e450ba106}</Project>
+      <Name>Mixins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511242234491_Initial.resx">
+      <DependentUpon>201511242234491_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511242358423_BridgeTableUpdate.resx">
+      <DependentUpon>201511242358423_BridgeTableUpdate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

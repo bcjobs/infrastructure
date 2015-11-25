@@ -1,21 +1,13 @@
-﻿using Demo.Web.Test;
+﻿using BookStore;
+using Demo.Web.Test;
+using Logs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using Events;
-using Demo.Web.Test.Services;
-using Logs;
 using System.Diagnostics.Contracts;
-using System.Web;
-using Authentications;
-using System.Security;
+using System.Web.Http;
 
 namespace Demo.Web.Controllers
-{    
+{
     public class DefaultController : ApiController
     {
         public DefaultController(ILog log, IGreeter greeter)
@@ -31,15 +23,7 @@ namespace Demo.Web.Controllers
 
         public IEnumerable<object> Get()
         {
-            try
-            {
-                var hello = Greeter.SayHello();
-            }
-            catch
-            {
-
-            }
-            return Log.Read(new LogQuery<Greeting>());
+            return Log.Read(new LogQuery<PriceChanged>());
         }        
     }
 }

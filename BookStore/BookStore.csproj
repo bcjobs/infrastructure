@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B120D3B2-B734-4A4C-98BC-9D03ABCF5419}</ProjectGuid>
+    <ProjectGuid>{732959C1-27E3-4861-92C6-E95EF7023298}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Base</RootNamespace>
-    <AssemblyName>Base</AssemblyName>
+    <RootNamespace>BookStore</RootNamespace>
+    <AssemblyName>BookStore</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -129,19 +130,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumerable.cs" />
-    <Compile Include="IClock.cs" />
-    <Compile Include="ImplementedTypes.cs" />
-    <Compile Include="PaginatedQuery.cs" />
+    <Compile Include="Book.cs" />
+    <Compile Include="BookQuery.cs" />
+    <Compile Include="PriceChanged.cs" />
+    <Compile Include="IBookCatalog.cs" />
+    <Compile Include="IBookReader.cs" />
+    <Compile Include="IBookWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomString.cs" />
-    <Compile Include="Services\SystemClock.cs" />
-    <Compile Include="TimeQuery.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Authentications\Authentications.csproj">
+      <Project>{0114898a-afcb-409c-935c-815d66b8055b}</Project>
+      <Name>Authentications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{b120d3b2-b734-4a4c-98bc-9d03abcf5419}</Project>
+      <Name>Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Events\Events.csproj">
+      <Project>{1f945abe-f634-4a2b-9ea5-52c7696cbc94}</Project>
+      <Name>Events</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IoC\IoC.csproj">
       <Project>{70f90331-b8de-4ce9-9866-79ed810e3561}</Project>
       <Name>IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logs\Logs.csproj">
+      <Project>{36757b22-00e5-464c-b946-3cfc03184576}</Project>
+      <Name>Logs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mixins\Mixins.csproj">
+      <Project>{0d05724d-2b92-4f09-a53f-044e450ba106}</Project>
+      <Name>Mixins</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

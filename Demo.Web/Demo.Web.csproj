@@ -228,6 +228,7 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\OwinConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -265,6 +266,18 @@
     <ProjectReference Include="..\Base\Base.csproj">
       <Project>{b120d3b2-b734-4a4c-98bc-9d03abcf5419}</Project>
       <Name>Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookStore.Alerts\BookStore.Alerts.csproj">
+      <Project>{691ad70f-b35b-4b64-869d-12a93b0f6eef}</Project>
+      <Name>BookStore.Alerts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookStore.EF6\BookStore.EF6.csproj">
+      <Project>{9ce217fb-b034-4df4-9642-2cbfa29610bc}</Project>
+      <Name>BookStore.EF6</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookStore\BookStore.csproj">
+      <Project>{732959c1-27e3-4861-92c6-e95ef7023298}</Project>
+      <Name>BookStore</Name>
     </ProjectReference>
     <ProjectReference Include="..\Events\Events.csproj">
       <Project>{1f945abe-f634-4a2b-9ea5-52c7696cbc94}</Project>
