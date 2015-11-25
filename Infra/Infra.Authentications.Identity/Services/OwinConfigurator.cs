@@ -19,6 +19,7 @@ namespace Infra.Authentications.Identity.Services
             app.CreatePerOwinContext(AuthenticationContext.Create);
             app.CreatePerOwinContext<AuthenticationUserManager>(AuthenticationUserManager.Create);
             app.CreatePerOwinContext<AuthenticationSignInManager>(AuthenticationSignInManager.Create);
+            app.CreatePerOwinContext<AuthenticationRoleManager>(AuthenticationRoleManager.Create);
 
             var cookieOptions = new CookieAuthenticationOptions
             {

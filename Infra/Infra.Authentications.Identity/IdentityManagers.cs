@@ -59,6 +59,14 @@ namespace Infra.Authentications.Identity
             }
         }
 
+        public static AuthenticationRoleManager RoleManager
+        {
+            get
+            {
+                return Request.GetOwinContext().Get<AuthenticationRoleManager>();
+            }
+        }
+
         static HttpRequest Request
         {
             get
