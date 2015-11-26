@@ -41,6 +41,14 @@ namespace Infra.IoC
                 t => t.Namespace?.EndsWith("." + kind) == true);
         }
 
+        public Types Only<T>()
+        {
+            Contract.Ensures(Contract.Result<Types>() != null);
+            return new SelectedTypes(
+                this,
+                t => typeof(T).IsAssignableFrom(t));
+        }
+
         public Types Interfaces()
         {
             Contract.Ensures(Contract.Result<Types>() != null);

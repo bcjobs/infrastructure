@@ -45,4 +45,27 @@ namespace Infra
             }
         }
     }
+
+    public interface IPaginatedCollection<T> : IEnumerable<T>
+    {
+        Pagination Pagination { get; }
+    }
+
+    public class Pagination
+    {
+        public Pagination(PaginatedQuery query, int total)
+        {
+            Page = query.Page;
+            PageSize = query.PageSize;
+            Total = total;
+        }
+
+        public int Page { get; set; }
+        public int PageSize { get; private set; }
+        public int Total { get; private set; }
+        public int Pages
+        {
+            get { return (int)Math.Ceiling((double)Total / (double)PageSize); }
+        }
+    }
 }
