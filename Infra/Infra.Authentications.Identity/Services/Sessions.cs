@@ -34,9 +34,11 @@ namespace Infra.Authentications.Identity.Services
             System.Threading.Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
         }
 
-        public async Task SignInAsync(MailAddress email, string password)
+        public async Task SignInAsync(string email, string password)
         {
             var userId = UserLookup.UserId(email);
+            if (userId == null)
+                throw new InvalidCredentialsException();
 
             var user = await IdentityManagers.UserManager.FindAsync(userId.ToString(), password);
             if (user == null)

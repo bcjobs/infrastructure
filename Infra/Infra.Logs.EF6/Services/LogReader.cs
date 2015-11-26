@@ -37,7 +37,6 @@ namespace Infra.Logs.EF6.Services
                             new AuthenticationSnapshot(
                                 m.UserId,
                                 m.ImpersonatorId,
-                                m.ApiKey,
                                 IPAddress.Parse(m.ClientIP)),
                             m.EventJson.ToObject<E>(),
                             m.ExceptionJson.ToObject<EX>()

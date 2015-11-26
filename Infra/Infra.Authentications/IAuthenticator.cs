@@ -14,7 +14,6 @@ namespace Infra.Authentications
     {
         string UserId { get; }
         string ImpersonatorId { get; }
-        string ApiKey { get; }
         IPAddress ClientIP { get; }
     }
 

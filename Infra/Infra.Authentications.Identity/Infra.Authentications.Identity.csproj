@@ -183,6 +183,7 @@
     <Compile Include="AuthenticationContext.cs" />
     <Compile Include="AuthenticationRole.cs" />
     <Compile Include="AuthenticationRoleManager.cs" />
+    <Compile Include="Services\Authenticator.cs" />
     <Compile Include="IdentityManagers.cs" />
     <Compile Include="AuthenticationSignInManager.cs" />
     <Compile Include="AuthenticationUser.cs" />

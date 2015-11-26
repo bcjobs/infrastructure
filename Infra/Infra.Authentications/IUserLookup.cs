@@ -12,13 +12,13 @@ namespace Infra.Authentications
     [ContractClass(typeof(UserLookupContract))]
     public interface IUserLookup
     {
-        string UserId(MailAddress email);
+        string UserId(string email);
     }
 
     [ContractClassFor(typeof(IUserLookup))]
     abstract class UserLookupContract : IUserLookup
     {
-        public string UserId(MailAddress email)
+        public string UserId(string email)
         {
             Contract.Requires<ArgumentNullException>(email != null);            
             throw new NotImplementedException();
@@ -27,7 +27,7 @@ namespace Infra.Authentications
 
     public static class UserLookup
     {
-        public static bool Exists(this IUserLookup userLookup, MailAddress email)
+        public static bool Exists(this IUserLookup userLookup, string email)
         {
             Contract.Requires<ArgumentNullException>(userLookup != null);            
             Contract.Requires<ArgumentNullException>(email != null);

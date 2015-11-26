@@ -43,7 +43,6 @@ namespace Infra.Logs.EF6.Services
                     LoggedAt = Clock.GetTime(),
                     UserId = Authenticator.UserId,
                     ImpersonatorId = Authenticator.ImpersonatorId,
-                    ApiKey = Authenticator.ApiKey,
                     ClientIP = Authenticator.ClientIP.ToString(),
 
                     EventJson = e.ToJson(),
