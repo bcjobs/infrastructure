@@ -152,6 +152,10 @@
       <Project>{36757b22-00e5-464c-b946-3cfc03184576}</Project>
       <Name>Infra.Logs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infra\Infra.csproj">
+      <Project>{b120d3b2-b734-4a4c-98bc-9d03abcf5419}</Project>
+      <Name>Infra</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

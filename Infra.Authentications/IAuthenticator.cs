@@ -74,18 +74,26 @@ namespace Infra.Authentications
         }
 
         public static T UserId<T>(this IAuthenticator authenticator) {
-            if (authenticator.UserId == null)
-                return default(T);
-            else
-                return (T)Convert.ChangeType(authenticator.UserId, typeof(T));
+            try
+            {
+                return authenticator.UserId.To<T>();
+            }
+            catch (InvalidCastException)
+            {
+                throw new AuthenticationException();
+            }
         }
 
         public static T ImpersonatorId<T>(this IAuthenticator authenticator)
         {
-            if (authenticator.ImpersonatorId == null)
-                return default(T);
-            else
-                return (T)Convert.ChangeType(authenticator.ImpersonatorId, typeof(T));
+            try
+            {
+                return authenticator.ImpersonatorId.To<T>();
+            }
+            catch (InvalidCastException)
+            {
+                throw new AuthenticationException();
+            }
         }
     }
 }
