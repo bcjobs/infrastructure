@@ -11,7 +11,7 @@ namespace Demo.Web.Services
 {
     public class UserLookup : IUserLookup
     {
-        public string UserId(MailAddress email)
+        public string UserId(string email)
         {
             return Guid.Empty.ToString();
         }
