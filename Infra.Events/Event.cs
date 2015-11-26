@@ -48,7 +48,12 @@ namespace Infra.Events
             if (!await RaiseAsync(e))
                 throw new NotImplementedException("Required " + typeof(T).Name + " event handler is not registered.");
         }
-        
+
+        public async static void Raise<T>(this T e)
+        {
+            await e.RaiseAsync();
+        }
+
         [DebuggerHidden]
         public async static Task<bool> RaiseAsync<T>(this T e)
         {

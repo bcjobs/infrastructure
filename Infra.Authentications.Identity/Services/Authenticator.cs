@@ -6,11 +6,15 @@ using System.Web;
 using System.Net;
 using System.Security.Claims;
 using System.Threading;
+using Infra.Events;
 
 namespace Infra.Authentications.Identity.Services
 {
     public class Authenticator : IAuthenticator
     {
+
+        bool UserActivityRaised { get; set; }
+
         public IPAddress ClientIP {
             get
             {
@@ -39,6 +43,12 @@ namespace Infra.Authentications.Identity.Services
             {
                 if (!IsAuthenticated)
                     return null;
+
+                if (!UserActivityRaised)
+                {
+                    new UserActivity(Identity.Name).Raise();
+                    UserActivityRaised = true;
+                }
 
                 return Identity.Name;
             }

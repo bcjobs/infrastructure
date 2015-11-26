@@ -72,5 +72,20 @@ namespace Infra.Authentications
             return authenticator.IsAuthenticated() &&
                 authenticator.UserId != authenticator.ImpersonatorId;
         }
+
+        public static T UserId<T>(this IAuthenticator authenticator) {
+            if (authenticator.UserId == null)
+                return default(T);
+            else
+                return (T)Convert.ChangeType(authenticator.UserId, typeof(T));
+        }
+
+        public static T ImpersonatorId<T>(this IAuthenticator authenticator)
+        {
+            if (authenticator.ImpersonatorId == null)
+                return default(T);
+            else
+                return (T)Convert.ChangeType(authenticator.ImpersonatorId, typeof(T));
+        }
     }
 }
