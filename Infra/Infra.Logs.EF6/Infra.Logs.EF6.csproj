@@ -177,6 +177,10 @@
     <Compile Include="Migrations\201511222046010_RenameBridgeTableForLogTypes2.Designer.cs">
       <DependentUpon>201511222046010_RenameBridgeTableForLogTypes2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511261239235_RemoveApiKey.cs" />
+    <Compile Include="Migrations\201511261239235_RemoveApiKey.Designer.cs">
+      <DependentUpon>201511261239235_RemoveApiKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LogReader.cs" />
@@ -207,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511222046010_RenameBridgeTableForLogTypes2.resx">
       <DependentUpon>201511222046010_RenameBridgeTableForLogTypes2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511261239235_RemoveApiKey.resx">
+      <DependentUpon>201511261239235_RemoveApiKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
