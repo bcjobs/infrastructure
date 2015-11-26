@@ -16,7 +16,7 @@ namespace Infra.Authentications.Identity
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<AuthenticationContext, Configuration>());
         }
 
-        public AuthenticationContext() :  base("Name=AuthenticationIdentity") { }
+        public AuthenticationContext() :  base("Name=AuthenticationsIdentity") { }
 
         public static AuthenticationContext Create()
         {
