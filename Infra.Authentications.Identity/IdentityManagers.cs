@@ -10,7 +10,7 @@ using System.Web;
 
 namespace Infra.Authentications.Identity
 {
-    static class IdentityManagers
+    public static class IdentityManagers
     {
         public static async Task<AuthenticationUser> GetOrCreateAsync(string userId)
         {
