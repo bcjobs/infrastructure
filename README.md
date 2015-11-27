@@ -32,3 +32,25 @@ This repository contains a collection of _infrastructure_ projects that should b
   * Example: https://github.com/bcjobs/demo/blob/master/Demo.Web/Services/Authenticator.cs
 * Add `AuthenticationsIdentity` connection string in `web.config`.
   * Example: https://github.com/bcjobs/demo/blob/master/Demo.Web/Web.config
+
+## Project Properties
+These are recommendations only and not required to use this library.<br />
+Every time you add a new project, these changes to the project properties are recommended:<br />
+
+* `Build` tab:
+  * `Configurations`: `All Configurations`
+  * `Supress warnings`: `1998`
+If Code Contracts is installed:
+* `Code Contracts` tab:
+  * `Configurations`: `All Configurations`
+  * `Perform Runtime Contract Checking`: select checkbox and select `Full` from the dropdown
+  * `Contract Reference Assembly`: `Build`
+  * `Emit contracts into XML doc file`: select checkbox
+
+## IoC Autodiscovery
+To ensure that all implementations of interfaces in a project are auto-discovered, do the following:
+
+* Open `AssemblyInfo.cs` file (nested inside `Properties` in Solution Explorer)
+* Add this to the bottom:
+  * `[assembly: IoC]`
+  * Don't forget the _using_ statement at the top:<br />`using Infra.IoC;`
