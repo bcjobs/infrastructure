@@ -13,6 +13,11 @@ namespace Infra.Authentications.Identity.Services
     public class Authenticator : IAuthenticator
     {
 
+        public Authenticator()
+        {
+            System.Diagnostics.Debug.WriteLine(" Authenticator constructed.");
+        }
+
         bool UserActivityRaised { get; set; }
 
         public IPAddress ClientIP {
@@ -46,8 +51,8 @@ namespace Infra.Authentications.Identity.Services
 
                 if (!UserActivityRaised)
                 {
-                    new UserActivity(Identity.Name).Raise();
                     UserActivityRaised = true;
+                    new UserActivity(Identity.Name).Raise();
                 }
 
                 return Identity.Name;

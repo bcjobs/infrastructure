@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infra.Authentications.Identity.Services
+namespace Infra.Authentications.Identity.Services.Transient
 {
     public class OwinConfigurator : IHandler<IAppBuilder>
     {
