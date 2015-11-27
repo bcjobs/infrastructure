@@ -9,5 +9,12 @@ namespace Infra.Authentications.Identity
 {
     public class AuthenticationRole : IdentityRole
     {
+        public AuthenticationRole() : base()
+        {
+        }
+
+        public AuthenticationRole(string roleName) : base(roleName)
+        {
+        }
     }
 }
