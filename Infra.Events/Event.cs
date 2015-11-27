@@ -39,6 +39,11 @@ namespace Infra.Events
             return new Subscription<T>(handler);
         }
 
+        public static void Send<T>(this T e)
+        {
+            e.SendAsync().Wait();
+        }
+
         [DebuggerHidden]
         public static async Task SendAsync<T>(this T e)
         {
@@ -49,9 +54,9 @@ namespace Infra.Events
                 throw new NotImplementedException("Required " + typeof(T).Name + " event handler is not registered.");
         }
 
-        public async static void Raise<T>(this T e)
+        public static bool Raise<T>(this T e)
         {
-            await e.RaiseAsync();
+            return e.RaiseAsync().Result;
         }
 
         [DebuggerHidden]
