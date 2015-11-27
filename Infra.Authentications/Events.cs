@@ -113,7 +113,7 @@ namespace Infra.Authentications
     {
         public UserActivity(string userId)
         {
-            Contract.Requires<ArgumentNullException>(userId == null);
+            Contract.Requires<ArgumentNullException>(userId != null);
             Contract.Ensures(UserId != null);
             UserId = userId;
         }
