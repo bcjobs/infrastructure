@@ -49,6 +49,20 @@ namespace Infra.IoC
                 t => typeof(T).IsAssignableFrom(t));
         }
 
+        public Types Skip<T>()
+        {
+            Contract.Ensures(Contract.Result<Types>() != null);
+            return this.Skip(typeof(T));
+        }
+
+        public Types Skip(Type type)
+        {
+            Contract.Ensures(Contract.Result<Types>() != null);
+            return new SelectedTypes(
+                this,
+                t => !type.IsAssignableFrom(t));
+        }
+
         public Types Interfaces()
         {
             Contract.Ensures(Contract.Result<Types>() != null);
