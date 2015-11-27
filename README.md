@@ -46,3 +46,11 @@ If Code Contracts is installed:
   * `Perform Runtime Contract Checking`: select checkbox and select `Full` from the dropdown
   * `Contract Reference Assembly`: `Build`
   * `Emit contracts into XML doc file`: select checkbox
+
+## IoC Autodiscovery
+To ensure that all implementations of interfaces in a project are auto-discovered, do the following:
+
+* Open `AssemblyInfo.cs` file (nested inside `Properties` in Solution Explorer)
+* Add this to the bottom:
+  * `[assembly: IoC]`
+  * Don't forget the _using_ statement at the top:<br />`using Infra.IoC;`
