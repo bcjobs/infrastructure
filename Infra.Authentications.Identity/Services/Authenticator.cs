@@ -13,12 +13,12 @@ namespace Infra.Authentications.Identity.Services
     public class Authenticator : IAuthenticator
     {
 
-        public Authenticator()
+        public Authenticator(IEnumerable<IUserActivityMonitor> monitors)
         {
-            System.Diagnostics.Debug.WriteLine(" Authenticator constructed.");
+            Monitors = monitors;
         }
 
-        bool UserActivityRaised { get; set; }
+        IEnumerable<IUserActivityMonitor> Monitors { get; }
 
         public IPAddress ClientIP {
             get
@@ -49,11 +49,8 @@ namespace Infra.Authentications.Identity.Services
                 if (!IsAuthenticated)
                     return null;
 
-                if (!UserActivityRaised)
-                {
-                    UserActivityRaised = true;
-                    new UserActivity(Identity.Name).Raise();
-                }
+                foreach (var monitor in Monitors)
+                    monitor.Observe(this);
 
                 return Identity.Name;
             }

@@ -26,6 +26,12 @@ namespace Infra.Authentications.Identity.Services
             await SignInUserAsync(user, impersonatorId);
         }
 
+        public void SignIn(string userId)
+        {
+            var user = IdentityManagers.GetOrCreate(userId);
+            SignInUser(user);
+        }
+
         public async Task SignInAsync(string userId)
         {
             var user = await IdentityManagers.GetOrCreateAsync(userId);
@@ -43,6 +49,21 @@ namespace Infra.Authentications.Identity.Services
                 throw new InvalidCredentialsException();
 
             await SignInUserAsync(user);
+        }
+
+        void SignInUser(AuthenticationUser user, string impersonatorId = null)
+        {
+            var identity = IdentityManagers.UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+
+            if (impersonatorId != null)
+                identity.AddImpersonatorId(impersonatorId);
+
+            IdentityManagers.AuthenticationManager.SignIn(new AuthenticationProperties
+            {
+                IsPersistent = false
+            }, identity);
+
+            System.Threading.Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
         }
 
         async Task SignInUserAsync(AuthenticationUser user, string impersonatorId = null)

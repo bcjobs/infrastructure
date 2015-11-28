@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,30 @@ namespace Infra.Authentications.Identity
 {
     public static class IdentityManagers
     {
+
+        public static AuthenticationUser GetOrCreate(string userId)
+        {
+            Contract.Requires<ArgumentNullException>(userId != null);
+            Contract.Ensures(Contract.Result<AuthenticationUser>() != null);
+
+            var user = UserManager.FindById(userId);
+            if (user == null)
+            {
+                user = new AuthenticationUser
+                {
+                    Id = userId,
+                    UserName = userId
+                };
+
+                var result = UserManager.Create(user);
+                if (!result.Succeeded)
+                    throw new InvalidOperationException(string.Join(", ", result.Errors));
+
+            }
+
+            return user;
+        }
+
         public static async Task<AuthenticationUser> GetOrCreateAsync(string userId)
         {
             Contract.Requires<ArgumentNullException>(userId != null);

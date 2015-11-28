@@ -109,14 +109,4 @@ namespace Infra.Authentications
         public string UserId { get; }
     }
 
-    public class UserActivity : AuthenticationAction
-    {
-        public UserActivity(string userId)
-        {
-            Contract.Requires<ArgumentNullException>(userId != null);
-            Contract.Ensures(UserId != null);
-            UserId = userId;
-        }
-        public string UserId { get; }
-    }
 }
