@@ -29,6 +29,19 @@ namespace Infra.Authentications.Identity.Services.Transient
             if (ConfigurationManager.AppSettings["security:LoginPath"] != null)
                 cookieOptions.LoginPath = new PathString(ConfigurationManager.AppSettings["security:LoginPath"]);
 
+            // http://stackoverflow.com/a/20151056/188740
+            if (ConfigurationManager.AppSettings["security:IgnoreLoginPathIfRequestUrlStartsWithSegment"] != null)
+            {
+                cookieOptions.Provider = new CookieAuthenticationProvider
+                {
+                    OnApplyRedirect = context =>
+                    {
+                        if (!context.Request.Path.StartsWithSegments(new PathString(ConfigurationManager.AppSettings["security:IgnoreLoginPathIfRequestUrlStartsWithSegment"])))
+                            context.Response.Redirect(context.RedirectUri);
+                    }
+                };
+            }
+
             if (ConfigurationManager.AppSettings["security:CookieName"] != null)
                 cookieOptions.CookieName = ConfigurationManager.AppSettings["security:CookieName"];
 
