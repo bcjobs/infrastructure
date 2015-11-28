@@ -136,7 +136,7 @@
     <Compile Include="InvalidCredentialsException.cs" />
     <Compile Include="IPasswords.cs" />
     <Compile Include="ISessions.cs" />
-    <Compile Include="IUserActivityMonitor.cs" />
+    <Compile Include="IAuthenticationObserver.cs" />
     <Compile Include="IUserLookup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

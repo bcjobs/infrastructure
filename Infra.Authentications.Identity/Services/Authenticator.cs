@@ -13,12 +13,12 @@ namespace Infra.Authentications.Identity.Services
     public class Authenticator : IAuthenticator
     {
 
-        public Authenticator(IEnumerable<IUserActivityMonitor> monitors)
+        public Authenticator(IEnumerable<IAuthenticationObserver> monitors)
         {
             Monitors = monitors;
         }
 
-        IEnumerable<IUserActivityMonitor> Monitors { get; }
+        IEnumerable<IAuthenticationObserver> Monitors { get; }
 
         public IPAddress ClientIP {
             get

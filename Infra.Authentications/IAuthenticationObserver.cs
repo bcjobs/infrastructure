@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infra.Authentications
 {
-    public interface IUserActivityMonitor
+    public interface IAuthenticationObserver
     {
         void Observe(IAuthenticator authenticator);
     }

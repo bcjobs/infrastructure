@@ -139,6 +139,7 @@
     <Compile Include="RandomString.cs" />
     <Compile Include="Services\SystemClock.cs" />
     <Compile Include="StringHelpers.cs" />
+    <Compile Include="TaskHelpers.cs" />
     <Compile Include="TimeQuery.cs" />
     <Compile Include="TypeHelpers.cs" />
   </ItemGroup>
