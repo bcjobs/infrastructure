@@ -23,15 +23,13 @@ namespace Infra.Authentications.Identity.Services
         public async Task ImpersonateAsync(string userId, string impersonatorId)
         {
             var user = await IdentityManagers.GetOrCreateAsync(userId);
+            await SignInUserAsync(user, impersonatorId);
+        }
 
-            var identity = await IdentityManagers.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            identity.AddImpersonatorId(impersonatorId);
-            IdentityManagers.AuthenticationManager.SignIn(new AuthenticationProperties
-            {
-                IsPersistent = false
-            }, identity);
-
-            System.Threading.Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
+        public async Task SignInAsync(string userId)
+        {
+            var user = await IdentityManagers.GetOrCreateAsync(userId);
+            await SignInUserAsync(user);
         }
 
         public async Task SignInAsync(string email, string password)
@@ -44,7 +42,16 @@ namespace Infra.Authentications.Identity.Services
             if (user == null)
                 throw new InvalidCredentialsException();
 
+            await SignInUserAsync(user);
+        }
+
+        async Task SignInUserAsync(AuthenticationUser user, string impersonatorId = null)
+        {
             var identity = await IdentityManagers.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+
+            if (impersonatorId != null)
+                identity.AddImpersonatorId(impersonatorId);
+
             IdentityManagers.AuthenticationManager.SignIn(new AuthenticationProperties
             {
                 IsPersistent = false

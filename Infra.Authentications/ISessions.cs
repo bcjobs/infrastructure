@@ -11,6 +11,7 @@ namespace Infra.Authentications
     [ContractClass(typeof(SessionsContract))]
     public interface ISessions
     {
+        Task SignInAsync(string userId);
         Task SignInAsync(string email, string password);
         Task ImpersonateAsync(string userId, string impersonatorId);
         Task SignOutAsync();
@@ -19,6 +20,13 @@ namespace Infra.Authentications
     [ContractClassFor(typeof(ISessions))]
     abstract class SessionsContract : ISessions
     {
+        public Task SignInAsync(string userId)
+        {
+            Contract.Requires<InvalidCredentialsException>(userId != null);
+            Contract.Ensures(Contract.Result<Task>() != null);
+            throw new NotImplementedException();
+        }
+
         public Task SignInAsync(string email, string password)
         {
             Contract.Requires<InvalidCredentialsException>(email != null);
