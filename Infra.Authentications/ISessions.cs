@@ -14,6 +14,7 @@ namespace Infra.Authentications
         void SignIn(string userId);
         Task SignInAsync(string userId);
         Task SignInAsync(string email, string password);
+        void Impersonate(string userId, string impersonatorId);
         Task ImpersonateAsync(string userId, string impersonatorId);
         Task SignOutAsync();
     }
@@ -42,9 +43,17 @@ namespace Infra.Authentications
             throw new NotImplementedException();
         }
 
+        public void Impersonate(string userId, string impersonatorId)
+        {
+            Contract.Requires<ArgumentNullException>(userId != null);
+            Contract.Requires<ArgumentNullException>(impersonatorId != null);
+            throw new NotImplementedException();
+        }
+
         public Task ImpersonateAsync(string userId, string impersonatorId)
         {
             Contract.Requires<ArgumentNullException>(userId != null);
+            Contract.Requires<ArgumentNullException>(impersonatorId != null);
             Contract.Ensures(Contract.Result<Task>() != null);
             throw new NotImplementedException();
         }

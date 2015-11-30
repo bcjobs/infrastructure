@@ -20,6 +20,12 @@ namespace Infra.Authentications.Identity.Services
 
         IUserLookup UserLookup { get; }
 
+        public void Impersonate(string userId, string impersonatorId)
+        {
+            var user = IdentityManagers.GetOrCreate(userId);
+            SignInUser(user, impersonatorId);
+        }
+
         public async Task ImpersonateAsync(string userId, string impersonatorId)
         {
             var user = await IdentityManagers.GetOrCreateAsync(userId);
@@ -88,5 +94,6 @@ namespace Infra.Authentications.Identity.Services
             IdentityManagers.AuthenticationManager.SignOut();
             return Task.CompletedTask;
         }
+
     }
 }
