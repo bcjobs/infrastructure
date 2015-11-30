@@ -78,7 +78,9 @@ namespace Infra.Authentications.Identity.Services
                 IsPersistent = false
             }, identity);
 
-            System.Threading.Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
+            // Cannot assign CurrentPrincipal to thread in async because it can't be propagated up.
+            // If you need to access current logged in user immediately after signing in, use synchronous version.
+            //System.Threading.Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
         }
 
         public Task SignOutAsync()
