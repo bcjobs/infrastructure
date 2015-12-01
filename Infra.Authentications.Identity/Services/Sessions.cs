@@ -8,6 +8,7 @@ using System.Net.Mail;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
+using Infra.Events;
 
 namespace Infra.Authentications.Identity.Services
 {
@@ -42,6 +43,7 @@ namespace Infra.Authentications.Identity.Services
         {
             var user = await IdentityManagers.GetOrCreateAsync(userId);
             await SignInUserAsync(user);
+            await new SignedInAsync(userId).RaiseAsync();
         }
 
         public async Task SignInAsync(string email, string password)
@@ -55,6 +57,7 @@ namespace Infra.Authentications.Identity.Services
                 throw new InvalidCredentialsException();
 
             await SignInUserAsync(user);
+            await new SignedInAsync(userId).RaiseAsync();
         }
 
         void SignInUser(AuthenticationUser user, string impersonatorId = null)

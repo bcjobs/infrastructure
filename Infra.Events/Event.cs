@@ -54,10 +54,10 @@ namespace Infra.Events
                 throw new NotImplementedException("Required " + typeof(T).Name + " event handler is not registered.");
         }
 
-        public static bool Raise<T>(this T e)
-        {
-            return e.RaiseAsync().Result;
-        }
+        //public static bool Raise<T>(this T e)
+        //{
+        //    return e.RaiseAsync().Result;
+        //}
 
         [DebuggerHidden]
         public async static Task<bool> RaiseAsync<T>(this T e)

@@ -109,4 +109,13 @@ namespace Infra.Authentications
         public string UserId { get; }
     }
 
+    public class SignedInAsync
+    {
+        public SignedInAsync(string userId)
+        {
+            UserId = userId;
+        }
+        public string UserId { get; }
+    }
+
 }
