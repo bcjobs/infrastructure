@@ -138,6 +138,7 @@
     <Compile Include="ISessions.cs" />
     <Compile Include="IAuthenticationObserver.cs" />
     <Compile Include="IUserLookup.cs" />
+    <Compile Include="IUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
