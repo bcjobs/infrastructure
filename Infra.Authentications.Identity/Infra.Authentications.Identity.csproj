@@ -201,6 +201,7 @@
     <Compile Include="Services\Transient\OwinConfigurator.cs" />
     <Compile Include="Services\Passwords.cs" />
     <Compile Include="Services\Sessions.cs" />
+    <Compile Include="Services\Users.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
