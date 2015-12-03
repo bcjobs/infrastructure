@@ -8,9 +8,40 @@ namespace Infra.Authentications.Identity.Services
 {
     public class Users : IUsers
     {
+        public async Task CreateAsync(string userId, string password = null)
+        {
+            var appUser = new AuthenticationUser
+            {
+                Id = userId,
+                UserName = userId
+            };
+
+            var result = password != null 
+                ? await IdentityManagers.UserManager.CreateAsync(appUser, password)
+                : await IdentityManagers.UserManager.CreateAsync(appUser);
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException(string.Join(", ", result.Errors));
+        }
+
+        public async Task DeleteAsync(string userId)
+        {
+            var appUser = await IdentityManagers.UserManager.FindByIdAsync(userId);
+            if (appUser == null)
+                throw new InvalidOperationException("User requested for deleting couldn't be found.");
+
+            var result = await IdentityManagers.UserManager.DeleteAsync(appUser);
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException(string.Join(", ", result.Errors));
+        }
+
         public async Task AddToRoleAsync(string userId, string role)
         {
-            await IdentityManagers.UserManager.AddToRoleAsync(userId, role);
+            var result = await IdentityManagers.UserManager.AddToRoleAsync(userId, role);
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException(string.Join(", ", result.Errors));
         }
 
         public async Task<IEnumerable<string>> GetRolesAsync(string userId)
@@ -20,7 +51,10 @@ namespace Infra.Authentications.Identity.Services
 
         public async Task RemoveFromRoleAsync(string userId, string role)
         {
-            await IdentityManagers.UserManager.RemoveFromRoleAsync(userId, role);
+            var result = await IdentityManagers.UserManager.RemoveFromRoleAsync(userId, role);
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException(string.Join(", ", result.Errors));
         }
     }
 }
