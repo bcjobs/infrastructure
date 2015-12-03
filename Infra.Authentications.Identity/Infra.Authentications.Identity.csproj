@@ -198,6 +198,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Roles.cs" />
     <Compile Include="Services\Transient\OwinConfigurator.cs" />
     <Compile Include="Services\Passwords.cs" />
     <Compile Include="Services\Sessions.cs" />
