@@ -141,6 +141,7 @@
     <Compile Include="IUserLookup.cs" />
     <Compile Include="IUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResetPasswordException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infra.Events\Infra.Events.csproj">

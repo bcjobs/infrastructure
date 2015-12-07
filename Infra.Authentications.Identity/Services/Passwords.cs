@@ -44,7 +44,7 @@ namespace Infra.Authentications.Identity.Services
         {
             var result = await IdentityManagers.UserManager.ResetPasswordAsync(userId, token, password);
             if (!result.Succeeded)
-                throw new InvalidOperationException(string.Join(", ", result.Errors));
+                throw new ResetPasswordException(string.Join(", ", result.Errors));
         }
     }
 }
