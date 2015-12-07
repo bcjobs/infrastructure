@@ -24,10 +24,10 @@ This repository contains a collection of _infrastructure_ projects that should b
   * Add the following to `appSettings` in `web.config`: `<add key="owin:AppStartup" value="{namespace}.OwinConfig" />`
   * Where `{namespace}` is the namespace to `OwinConfig`
 * Optionally add the following options in `web.config` `appSettings`:
-  * `<add key="security:LoginPath" value="/authentication/login" />`
-  * `<add key="security:IgnoreLoginPathIfRequestUrlStartsWithSegment" value="/api" />`<br />
-    _This is very important to add if `security:LoginPath` is added, otherwise 401 responses from the API will result in undesirable 302 redirects._
-  * `<add key="security:CookieName" value="auth-token" />`
+  * `<add key="authentications:LoginPath" value="/authentication/login" />`
+  * `<add key="authentications:IgnoreLoginPathIfRequestUrlStartsWithSegment" value="/api" />`<br />
+    _This is very important to add if `authentications:LoginPath` is added, otherwise 401 responses from the API will result in undesirable 302 redirects._
+  * `<add key="authentications:CookieName" value="auth-token" />`
 * Add the following NuGet packages to the web project:
   * Microsoft.AspNet.Identity.EntityFramework
   * Microsoft.AspNet.Identity.OWIN

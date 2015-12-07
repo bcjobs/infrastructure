@@ -26,27 +26,27 @@ namespace Infra.Authentications.Identity.Services.Transient
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie
             };
 
-            if (ConfigurationManager.AppSettings["security:LoginPath"] != null)
-                cookieOptions.LoginPath = new PathString(ConfigurationManager.AppSettings["security:LoginPath"]);
+            if (ConfigurationManager.AppSettings["authentications:LoginPath"] != null)
+                cookieOptions.LoginPath = new PathString(ConfigurationManager.AppSettings["authentications:LoginPath"]);
 
             // http://stackoverflow.com/a/20151056/188740
-            if (ConfigurationManager.AppSettings["security:IgnoreLoginPathIfRequestUrlStartsWithSegment"] != null)
+            if (ConfigurationManager.AppSettings["authentications:IgnoreLoginPathIfRequestUrlStartsWithSegment"] != null)
             {
                 cookieOptions.Provider = new CookieAuthenticationProvider
                 {
                     OnApplyRedirect = context =>
                     {
-                        if (!context.Request.Path.StartsWithSegments(new PathString(ConfigurationManager.AppSettings["security:IgnoreLoginPathIfRequestUrlStartsWithSegment"])))
+                        if (!context.Request.Path.StartsWithSegments(new PathString(ConfigurationManager.AppSettings["authentications:IgnoreLoginPathIfRequestUrlStartsWithSegment"])))
                             context.Response.Redirect(context.RedirectUri);
                     }
                 };
             }
 
-            if (ConfigurationManager.AppSettings["security:CookieName"] != null)
-                cookieOptions.CookieName = ConfigurationManager.AppSettings["security:CookieName"];
+            if (ConfigurationManager.AppSettings["authentications:CookieName"] != null)
+                cookieOptions.CookieName = ConfigurationManager.AppSettings["authentications:CookieName"];
 
-            if (ConfigurationManager.AppSettings["security:CookieDomain"] != null)
-                cookieOptions.CookieDomain = ConfigurationManager.AppSettings["security:CookieDomain"];
+            if (ConfigurationManager.AppSettings["authentications:CookieDomain"] != null)
+                cookieOptions.CookieDomain = ConfigurationManager.AppSettings["authentications:CookieDomain"];
 
             app.UseCookieAuthentication(cookieOptions);
 
