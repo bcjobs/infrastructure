@@ -48,6 +48,9 @@ namespace Infra.Authentications.Identity.Services.Transient
             if (ConfigurationManager.AppSettings["authentications:CookieDomain"] != null)
                 cookieOptions.CookieDomain = ConfigurationManager.AppSettings["authentications:CookieDomain"];
 
+            if (ConfigurationManager.AppSettings["authentications:CookieSecure"] != null)
+                cookieOptions.CookieSecure = (CookieSecureOption)Enum.Parse(typeof(CookieSecureOption), ConfigurationManager.AppSettings["authentications:CookieSecure"], true);
+
             app.UseCookieAuthentication(cookieOptions);
 
             return Task.FromResult(true);

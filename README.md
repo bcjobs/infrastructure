@@ -28,6 +28,8 @@ This repository contains a collection of _infrastructure_ projects that should b
   * `<add key="authentications:IgnoreLoginPathIfRequestUrlStartsWithSegment" value="/api" />`<br />
     _This is very important to add if `authentications:LoginPath` is added, otherwise 401 responses from the API will result in undesirable 302 redirects._
   * `<add key="authentications:CookieName" value="auth-token" />`
+  * `<add key="authentications:CookieSecure" value="SameAsRequest" />`<br />
+    _Where value can be `SameAsRequest`(default), `Never`, or `Always`_
 * Add the following NuGet packages to the web project:
   * Microsoft.AspNet.Identity.EntityFramework
   * Microsoft.AspNet.Identity.OWIN
