@@ -120,6 +120,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -130,8 +131,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionStrings.cs" />
     <Compile Include="EnumConverter.cs" />
     <Compile Include="Enumerable.cs" />
+    <Compile Include="Guard.cs" />
     <Compile Include="IClock.cs" />
     <Compile Include="ImplementedTypes.cs" />
     <Compile Include="PaginatedQuery.cs" />
