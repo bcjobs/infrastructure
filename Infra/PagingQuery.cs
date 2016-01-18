@@ -87,6 +87,21 @@ namespace Infra
                 source
                     .AsEnumerable()
                     .Select(selector));
+
+        public static IPage<TResult> ToPage<T, TResult>(this IQueryable<T> source, PagingQuery query, Func<T, TResult> selector) =>
+            source
+                .AsPage(query, selector)
+                .Load();
+
+        public static IPage<T> ToPage<T>(this IQueryable<T> source, PagingQuery query) =>
+            source
+                .AsPage(query)
+                .Load();
+
+        static IPage<T> Load<T>(this IPage<T> source) =>
+            new Page<T>(
+                source.Pagination,
+                source.ToArray());
     }
 
 
