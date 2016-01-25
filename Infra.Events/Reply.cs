@@ -42,6 +42,11 @@ namespace Infra.Events
                 .RaiseAsync();
         }
 
+        public static TReply Request<TReply>(this object original)
+        {
+            return Task.Run(async () => await original.RequestAsync<TReply>()).Result;
+        }
+
         [DebuggerHidden]
         public static async Task<TReply> RequestAsync<TReply>(this object original)
         {

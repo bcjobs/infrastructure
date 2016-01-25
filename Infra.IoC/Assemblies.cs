@@ -18,10 +18,12 @@ namespace Infra.IoC
 
         static string LocalDirectory { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public static Assemblies Local { get; } = new DirectoryAssemblies(LocalDirectory);
-        public static Assemblies In(string directory) => new DirectoryAssemblies(directory);        
+        public static Assemblies In(string directory) => new DirectoryAssemblies(directory);
+
+        public static Assemblies Entry => new CombinedAssemblies(Assembly.GetEntryAssembly());
 
         public abstract IEnumerator<Assembly> GetEnumerator();
-
+   
         IEnumerator IEnumerable.GetEnumerator()
         {
             Contract.Ensures(Contract.Result<IEnumerator>() != null);
@@ -42,6 +44,9 @@ namespace Infra.IoC
             Contract.Ensures(Contract.Result<Assemblies>() != null);
             return new CombinedAssemblies(x, y);
         }
+
+        public Assemblies AndOf<T>() =>
+            new CombinedAssemblies(this, new CombinedAssemblies(typeof(T).Assembly));
     }
 
     [ContractClassFor(typeof(Assemblies))]

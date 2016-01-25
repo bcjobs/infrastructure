@@ -39,10 +39,11 @@ namespace Infra.Events
             return new Subscription<T>(handler);
         }
 
-        //public static void Send<T>(this T e)
-        //{
-        //    e.SendAsync().Wait();
-        //}
+        public static void Send<T>(this T e)
+        {
+            Task.Run(async () => await e.SendAsync())
+                .Wait();
+        }
 
         [DebuggerHidden]
         public static async Task SendAsync<T>(this T e)

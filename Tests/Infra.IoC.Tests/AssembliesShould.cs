@@ -40,5 +40,13 @@ namespace Infra.IoC.Tests
             CollectionAssert.Contains(names, "Infra.IoC.dll");
             CollectionAssert.Contains(names, "Infra.IoC.Tests.Contracts.dll");
         }
+
+        [TestMethod]
+        public void ListTypeAssemblies()
+        {
+            var assemblies = Assemblies.Entry.AndOf<IoCAttribute>().ToArray();
+            CollectionAssert.DoesNotContain(assemblies, null);
+            CollectionAssert.Contains(assemblies, typeof(IoCAttribute).Assembly);
+        }
     }
 }

@@ -10,21 +10,23 @@ namespace Infra.IoC
 {
     class CombinedAssemblies : Assemblies
     {
-        public CombinedAssemblies(params Assemblies[] assemblies)
+        public CombinedAssemblies(params Assemblies[] assemblies) 
+            : this(assemblies.SelectMany(a => a).ToArray())
         {
             Contract.Requires<ArgumentNullException>(assemblies != null);
             Contract.Ensures(Assemblies != null);
-            Assemblies = assemblies;
         }
 
-        Assemblies[] Assemblies { get; }
-
-        public override IEnumerator<Assembly> GetEnumerator()
+        public CombinedAssemblies(params Assembly[] assemblies)
         {
-            return Assemblies
-                .SelectMany(a => a)
-                .Distinct()
-                .GetEnumerator();
+            Contract.Requires<ArgumentNullException>(assemblies != null);
+            Contract.Ensures(Assemblies != null);
+            Assemblies = assemblies.Where(a => a != null).Distinct();
         }
+
+        IEnumerable<Assembly> Assemblies { get; }
+
+        public override IEnumerator<Assembly> GetEnumerator() => 
+            Assemblies.GetEnumerator();
     }
 }
