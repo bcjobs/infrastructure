@@ -9,7 +9,7 @@ namespace Infra.Authentications
     public class InvalidCredentialsException : Exception
     {
         public InvalidCredentialsException()
-            : base()
+            : this("Invalid credentials.")
         {
         }
 
