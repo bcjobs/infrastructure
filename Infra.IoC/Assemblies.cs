@@ -46,7 +46,13 @@ namespace Infra.IoC
         }
 
         public Assemblies AndOf<T>() =>
-            new CombinedAssemblies(this, new CombinedAssemblies(typeof(T).Assembly));
+            AndOf(typeof(T));
+
+        public Assemblies AndOf(params Type[] types) =>
+            new CombinedAssemblies(this, 
+                new CombinedAssemblies(types
+                    .Select(t => t.Assembly)
+                    .ToArray()));
     }
 
     [ContractClassFor(typeof(Assemblies))]
