@@ -11,8 +11,6 @@ namespace Infra.IoC
     {
         public CombinedTypes(params Types[] types)
         {
-            Contract.Requires<ArgumentNullException>(types != null);
-            Contract.Ensures(Types != null);
             Types = types;
         }
 

@@ -23,10 +23,6 @@ namespace Infra.Logs.EF6.Services
     {
         public LogWriter(IAuthenticator authenticator, IClock clock)
         {
-            Contract.Requires<ArgumentNullException>(authenticator != null);
-            Contract.Requires<ArgumentNullException>(clock != null);
-            Contract.Ensures(Authenticator != null);
-            Contract.Ensures(Clock != null);
             Authenticator = authenticator;
             Clock = clock;
         }

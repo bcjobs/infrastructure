@@ -21,8 +21,6 @@ namespace Infra.Authentications
     {
         public SessionStart(string userId)
         {
-            Contract.Requires<ArgumentNullException>(userId != null);
-            Contract.Ensures(UserId != null);
             UserId = userId;
         }
 
@@ -33,10 +31,6 @@ namespace Infra.Authentications
     {
         public SessionImpersonation(string userId, string impersonatorId)
         {
-            Contract.Requires<ArgumentNullException>(userId != null);
-            Contract.Requires<ArgumentNullException>(impersonatorId != null);
-            Contract.Ensures(UserId != null);
-            Contract.Ensures(ImpersonatorId != null);
             UserId = userId;
             ImpersonatorId = impersonatorId;
         }
@@ -49,8 +43,6 @@ namespace Infra.Authentications
     {
         public SessionTermination(string userId)
         {
-            Contract.Requires<ArgumentNullException>(userId != null);
-            Contract.Ensures(UserId != null);
             UserId = userId;
         }
 
@@ -65,8 +57,6 @@ namespace Infra.Authentications
     {
         public PasswordReset(string userId)
         {
-            Contract.Requires<ArgumentNullException>(userId != null);
-            Contract.Ensures(UserId != null);
             UserId = userId;
         }
 
@@ -77,8 +67,6 @@ namespace Infra.Authentications
     {
         public PasswordChange(string userId)
         {
-            Contract.Requires<ArgumentNullException>(userId != null);
-            Contract.Ensures(UserId != null);
             UserId = userId;
         }
 
@@ -89,8 +77,6 @@ namespace Infra.Authentications
     {
         public PasswordTokenCreation(string userId)
         {
-            Contract.Requires<ArgumentNullException>(userId != null);
-            Contract.Ensures(UserId != null);
             UserId = userId;
         }
 
@@ -101,8 +87,6 @@ namespace Infra.Authentications
     {
         public PasswordCreation(string userId)
         {
-            Contract.Requires<ArgumentNullException>(userId != null);
-            Contract.Ensures(UserId != null);
             UserId = userId;
         }
 
@@ -117,5 +101,4 @@ namespace Infra.Authentications
         }
         public string UserId { get; }
     }
-
 }

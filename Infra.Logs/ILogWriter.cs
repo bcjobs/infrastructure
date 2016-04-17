@@ -7,21 +7,10 @@ using System.Threading.Tasks;
 
 namespace Infra.Logs
 {
-    [ContractClass(typeof(LogWriterContract))]
     public interface ILogWriter
     {
         void Write<E, EX>(E e, EX ex)
             where EX : Exception;
-    }
-
-    [ContractClassFor(typeof(ILogWriter))]
-    abstract class LogWriterContract : ILogWriter
-    {
-        public void Write<E, EX>(E e, EX ex)            
-            where EX : Exception
-        {
-            Contract.Requires<ArgumentNullException>(e != null || ex != null);
-        }
     }
 
     public static class LogWriter

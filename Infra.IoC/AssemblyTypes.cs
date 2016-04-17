@@ -11,9 +11,6 @@ namespace Infra.IoC
     {
         public AssemblyTypes(Assemblies assemblies)
         {
-            Contract.Requires<ArgumentNullException>(assemblies != null);
-            Contract.Ensures(Assemblies != null);
-
             Assemblies = assemblies;
         }
 

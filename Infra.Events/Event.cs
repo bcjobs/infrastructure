@@ -14,9 +14,6 @@ namespace Infra.Events
     {
         public static IDisposable Subscribe<T>(Func<T, Task<bool>> handler, bool weakReference = false)
         {
-            Contract.Requires<ArgumentNullException>(handler != null);
-            Contract.Ensures(Contract.Result<IDisposable>() != null);
-
             if (weakReference)
                 return Subscribe(new WeakHandler<T>(handler));
             else
@@ -25,17 +22,11 @@ namespace Infra.Events
 
         public static IDisposable Subscribe<T>(IWeakHandler<T> handler)
         {
-            Contract.Requires<ArgumentNullException>(handler != null);
-            Contract.Ensures(Contract.Result<IDisposable>() != null);
-
             return new WeakSubscription<T>(handler);
         }
 
         public static IDisposable Subscribe<T>(IHandler<T> handler)
         {
-            Contract.Requires<ArgumentNullException>(handler != null);
-            Contract.Ensures(Contract.Result<IDisposable>() != null);
-
             return new Subscription<T>(handler);
         }
 
@@ -48,9 +39,6 @@ namespace Infra.Events
         [DebuggerHidden]
         public static async Task SendAsync<T>(this T e)
         {
-            Contract.Requires<ArgumentNullException>(e != null);
-            Contract.Ensures(Contract.Result<Task>() != null);
-
             if (!await RaiseAsync(e))
                 throw new NotImplementedException("Required " + typeof(T).Name + " event handler is not registered.");
         }
@@ -63,9 +51,6 @@ namespace Infra.Events
         [DebuggerHidden]
         public async static Task<bool> RaiseAsync<T>(this T e)
         {
-            Contract.Requires<ArgumentNullException>(e != null);
-            Contract.Ensures(Contract.Result<Task<bool>>() != null);
-
             try
             {
                 if(await NotifyAsync(e))
@@ -101,8 +86,6 @@ namespace Infra.Events
 
         public static bool Implement(this object e)
         {
-            Contract.Requires<ArgumentNullException>(e != null);
-
             if (EventScope.ContextEvent != EventScope.Empty)
                 return false;
 
@@ -145,9 +128,6 @@ namespace Infra.Events
             [DebuggerHidden]
             public static async Task<bool> NotifyAsync(object e)
             {
-                Contract.Requires<ArgumentNullException>(e != null);
-                Contract.Ensures(Contract.Result<Task<bool>>() != null);
-
                 Subscription[] instances;
                 Lock.EnterReadLock();                
                 try
@@ -175,8 +155,6 @@ namespace Infra.Events
 
             public Subscription(IHandler<T> handler)
             {
-                Contract.Requires<ArgumentNullException>(handler != null);
-                Contract.Ensures(_handler != null);
                 _handler = handler;
             }
 
@@ -195,9 +173,6 @@ namespace Infra.Events
 
             public WeakSubscription(IWeakHandler<T> handler)
             {
-                Contract.Requires<ArgumentNullException>(handler != null);
-                Contract.Ensures(_reference != null);
-
                 _reference = new WeakReference<IWeakHandler<T>>(handler);
             }
 

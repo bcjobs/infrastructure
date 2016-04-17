@@ -18,10 +18,6 @@ namespace Infra.Events
     {
         public Reply(TOriginal original, TSubject subject)
         {
-            Contract.Requires<ArgumentNullException>(original != null);
-            Contract.Requires<ArgumentNullException>(subject != null);
-            Contract.Ensures(Original != null);
-            Contract.Ensures(Subject != null);
             Original = original;
             Subject = subject;
         }
@@ -34,10 +30,6 @@ namespace Infra.Events
     {
         public async static Task<bool> ReplyAsync<TOriginal, TSubject>(this TOriginal original, TSubject subject)
         {
-            Contract.Requires<ArgumentNullException>(original != null);
-            Contract.Requires<ArgumentNullException>(subject != null);
-            Contract.Ensures(Contract.Result<Task<bool>>() != null);
-
             return await new Reply<TOriginal, TSubject>(original, subject)
                 .RaiseAsync();
         }
@@ -50,9 +42,6 @@ namespace Infra.Events
         [DebuggerHidden]
         public static async Task<TReply> RequestAsync<TReply>(this object original)
         {
-            Contract.Requires<ArgumentNullException>(original != null);
-            Contract.Ensures(Contract.Result<Task<TReply>>() != null);
-
             var sync = new Object();
             var reply = default(TReply);
             Exception ex = new MissingReplyException(original.GetType(), typeof(TReply));
@@ -81,10 +70,6 @@ namespace Infra.Events
         public static async Task RequestAsync<TOriginal, T1>(this TOriginal original, 
             Func<T1, Task<bool>> h1)
         {
-            Contract.Requires<ArgumentNullException>(original != null);
-            Contract.Requires<ArgumentNullException>(h1 != null);
-            Contract.Ensures(Contract.Result<Task>() != null);
-
             using (Event.Subscribe(new ReplayFilter<TOriginal, T1>(original, h1)))
                 await original.SendAsync();
         }
@@ -93,11 +78,6 @@ namespace Infra.Events
             Func<T1, Task<bool>> h1, 
             Func<T2, Task<bool>> h2)
         {
-            Contract.Requires<ArgumentNullException>(original != null);
-            Contract.Requires<ArgumentNullException>(h1 != null);
-            Contract.Requires<ArgumentNullException>(h2 != null);
-            Contract.Ensures(Contract.Result<Task>() != null);
-
             using (Event.Subscribe(new ReplayFilter<TOriginal, T1>(original, h1)))
             using (Event.Subscribe(new ReplayFilter<TOriginal, T2>(original, h2)))
                 await original.SendAsync();
@@ -108,12 +88,6 @@ namespace Infra.Events
             Func<T2, Task<bool>> h2, 
             Func<T3, Task<bool>> h3)
         {
-            Contract.Requires<ArgumentNullException>(original != null);
-            Contract.Requires<ArgumentNullException>(h1 != null);
-            Contract.Requires<ArgumentNullException>(h2 != null);
-            Contract.Requires<ArgumentNullException>(h3 != null);
-            Contract.Ensures(Contract.Result<Task>() != null);
-
             using (Event.Subscribe(new ReplayFilter<TOriginal, T1>(original, h1)))
             using (Event.Subscribe(new ReplayFilter<TOriginal, T2>(original, h2)))
             using (Event.Subscribe(new ReplayFilter<TOriginal, T3>(original, h3)))
@@ -126,13 +100,6 @@ namespace Infra.Events
             Func<T3, Task<bool>> h3, 
             Func<T4, Task<bool>> h4)
         {
-            Contract.Requires<ArgumentNullException>(original != null);
-            Contract.Requires<ArgumentNullException>(h1 != null);
-            Contract.Requires<ArgumentNullException>(h2 != null);
-            Contract.Requires<ArgumentNullException>(h3 != null);
-            Contract.Requires<ArgumentNullException>(h4 != null);
-            Contract.Ensures(Contract.Result<Task>() != null);
-
             using (Event.Subscribe(new ReplayFilter<TOriginal, T1>(original, h1)))
             using (Event.Subscribe(new ReplayFilter<TOriginal, T2>(original, h2)))
             using (Event.Subscribe(new ReplayFilter<TOriginal, T3>(original, h3)))
@@ -145,11 +112,6 @@ namespace Infra.Events
     {
         public ReplayFilter(TOriginal original, Func<TSubject, Task<bool>> handler)
         {
-            Contract.Requires<ArgumentNullException>(original != null);
-            Contract.Requires<ArgumentNullException>(handler != null);
-            Contract.Ensures(Original != null);
-            Contract.Ensures(Handler != null);
-
             Original = original;
             Handler = handler;
         }
@@ -179,8 +141,6 @@ namespace Infra.Events
                 "Too many replies of type {0} for event {1}.",
                 replay.FullName, source.FullName))
         {
-            Contract.Requires<ArgumentNullException>(source != null);
-            Contract.Requires<ArgumentNullException>(replay != null);
         }
 
         protected TooManyRepliesException(
@@ -203,8 +163,6 @@ namespace Infra.Events
                 "Missing reply of type {0} for event {1}.",
                 replay.FullName, source.FullName))
         {
-            Contract.Requires<ArgumentNullException>(source != null);
-            Contract.Requires<ArgumentNullException>(replay != null);
         }
 
         protected MissingReplyException(

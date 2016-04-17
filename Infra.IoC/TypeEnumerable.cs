@@ -11,8 +11,6 @@ namespace Infra.IoC
     {
         public static void ForAll(this IEnumerable<Type> types, Action<Type> action)
         {
-            Contract.Requires<ArgumentNullException>(types != null);
-            Contract.Requires<ArgumentNullException>(action != null);
             foreach (var type in types.Distinct())
                 action(type);
         }

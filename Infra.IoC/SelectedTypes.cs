@@ -11,8 +11,6 @@ namespace Infra.IoC
     {
         public SelectedTypes(Types types, Func<Type, bool> predicate)
         {
-            Contract.Requires<ArgumentNullException>(types != null);
-            Contract.Requires<ArgumentNullException>(predicate != null);
             Types = types;
             Predicate = predicate;
         }

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Infra.IoC
 {
-    [ContractClass(typeof(TypesContract))]
     public abstract class Types : IEnumerable<Type>
     {
         public static Types Referenced { get; } = new AssemblyTypes(Assemblies.Referenced);
@@ -20,13 +19,11 @@ namespace Infra.IoC
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            Contract.Ensures(Contract.Result<IEnumerator>() != null);
             return GetEnumerator();
         }
 
         public Types With<TAttribute>() where TAttribute : Attribute
         {
-            Contract.Ensures(Contract.Result<Types>() != null);
             return new SelectedTypes(
                 this, 
                 t => t.IsDefined(typeof(TAttribute), false));
@@ -34,8 +31,6 @@ namespace Infra.IoC
 
         public Types KindOf(string kind)
         {
-            Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(kind));
-            Contract.Ensures(Contract.Result<Types>() != null);
             return new SelectedTypes(
                 this,
                 t => t.Namespace?.EndsWith("." + kind) == true);
@@ -43,7 +38,6 @@ namespace Infra.IoC
 
         public Types Only<T>()
         {
-            Contract.Ensures(Contract.Result<Types>() != null);
             return new SelectedTypes(
                 this,
                 t => typeof(T).IsAssignableFrom(t));
@@ -51,13 +45,11 @@ namespace Infra.IoC
 
         public Types Skip<T>()
         {
-            Contract.Ensures(Contract.Result<Types>() != null);
             return this.Skip(typeof(T));
         }
 
         public Types Skip(Type type)
         {
-            Contract.Ensures(Contract.Result<Types>() != null);
             return new SelectedTypes(
                 this,
                 t => !type.IsAssignableFrom(t));
@@ -65,7 +57,6 @@ namespace Infra.IoC
 
         public Types Interfaces()
         {
-            Contract.Ensures(Contract.Result<Types>() != null);
             return new SelectedTypes(
                 this,
                 t => t.IsInterface);
@@ -73,7 +64,6 @@ namespace Infra.IoC
 
         public Types Classes()
         {
-            Contract.Ensures(Contract.Result<Types>() != null);
             return new SelectedTypes(
                 this,
                 t => t.IsClass && !t.IsAbstract);
@@ -81,20 +71,7 @@ namespace Infra.IoC
   
         public static Types operator +(Types x, Types y)
         {
-            Contract.Requires<ArgumentNullException>(x != null);
-            Contract.Requires<ArgumentNullException>(y != null);
-            Contract.Ensures(Contract.Result<Types>() != null);
             return new CombinedTypes(x, y);
-        }
-    }
-
-    [ContractClassFor(typeof(Types))]
-    abstract class TypesContract : Types
-    {
-        public override IEnumerator<Type> GetEnumerator()
-        {
-            Contract.Ensures(Contract.Result<IEnumerator<Type>>() != null);
-            throw new NotImplementedException();
         }
     }
 }

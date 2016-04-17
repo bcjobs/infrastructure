@@ -15,8 +15,6 @@ namespace Infra.Events.Dispatching
     {
         public EventDispatcher(IServiceProvider serviceProvider)
         {
-            Contract.Requires<ArgumentNullException>(serviceProvider != null);
-            Contract.Ensures(ServiceProvider != null);
             ServiceProvider = serviceProvider;
         }
 

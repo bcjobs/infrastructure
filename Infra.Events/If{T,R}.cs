@@ -7,34 +7,11 @@ using System.Threading.Tasks;
 
 namespace Infra.Events
 {   
-    [ContractClass(typeof(IfContract<,>))]
     public interface If<out T, R>
         where R : Result
     {
         T Subject { get; }
         Exception Exception { get; }
-    }
-
-    [ContractClassFor(typeof(If<,>))]
-    abstract class IfContract<T, R> : If<T, R>
-        where R : Result
-    {
-        public Exception Exception
-        {
-            get
-            {                
-                throw new NotImplementedException();
-            }
-        }
-
-        public T Subject
-        {
-            get
-            {
-                //Contract.Ensures(Contract.Result<T>() != null);
-                throw new NotImplementedException();
-            }
-        }
     }
 
     class Notification
@@ -54,8 +31,6 @@ namespace Infra.Events
     {
         public Notification(T subject, Exception exception = null)
         {
-            Contract.Requires<ArgumentNullException>(subject != null || exception != null);
-            Contract.Ensures(Subject != null || exception != null);
             Subject = subject;
             Exception = exception;
         }

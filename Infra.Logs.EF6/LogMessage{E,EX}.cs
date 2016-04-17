@@ -17,10 +17,6 @@ namespace Infra.Logs.EF6
             E e,
             EX ex)
         {
-            Contract.Requires<ArgumentNullException>(authenticationSnapshot != null);
-            Contract.Requires<ArgumentNullException>(e != null || ex != null);
-            Contract.Ensures(AuthenticationSnapshot != null);
-            Contract.Ensures(e != null || ex != null);
             LoggedAt = loggedAt;
             AuthenticationSnapshot = authenticationSnapshot;
             Event = e;

@@ -13,16 +13,11 @@ namespace Infra.Mixins
     {
         public MixinFactory(Type mixinInterface)
         {
-            Contract.Requires<ArgumentNullException>(mixinInterface != null);
-            Contract.Requires<ArgumentException>(mixinInterface.IsInterface);
-
             MixinInterface = mixinInterface;
         }
 
         public Type Emit()
         {
-            Contract.Ensures(Contract.Result<Type>() != null);
-
             var tb = TypeBuilder();
             var fbs = FieldBuilders(tb);
             DefineConstructor(tb, fbs);
@@ -38,9 +33,6 @@ namespace Infra.Mixins
 
         void DefineConstructor(TypeBuilder tb, IEnumerable<FieldBuilder> fbs)
         {
-            Contract.Requires<ArgumentNullException>(tb != null);
-            Contract.Requires<ArgumentNullException>(fbs != null);
-
             ConstructorBuilder ctor = ConstructorBuilder(tb, fbs);
             ILGenerator il = ctor.GetILGenerator();
 
@@ -61,9 +53,6 @@ namespace Infra.Mixins
 
         void DelegateTo(TypeBuilder tb, FieldInfo fi)
         {
-            Contract.Requires<ArgumentNullException>(tb != null);
-            Contract.Requires<ArgumentNullException>(fi != null);
-
             foreach (var mi in fi.FieldType.GetMethods())
             {
                 var mb = tb.DefineMethod(

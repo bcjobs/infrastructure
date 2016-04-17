@@ -27,14 +27,11 @@ namespace Infra.Events
 
         public WrapperFactory(Type interfaceType)
         {
-            Contract.Requires<ArgumentNullException>(interfaceType != null);
-            Contract.Requires<ArgumentNullException>(interfaceType.IsInterface);
             ServiceInterface = interfaceType;
         }
 
         Type Emit()
         {
-            Contract.Ensures(Contract.Result<Type>() != null);
             var tb = TypeBuilder();
             var fb = FieldBuilder(tb);
 
@@ -47,9 +44,6 @@ namespace Infra.Events
 
         void DefineConstructor(TypeBuilder tb, FieldBuilder fb)
         {
-            Contract.Requires<ArgumentNullException>(tb != null);
-            Contract.Requires<ArgumentNullException>(fb != null);
-
             ConstructorBuilder ctor = ConstructorBuilder(tb, fb);
             ILGenerator il = ctor.GetILGenerator();
 
@@ -68,9 +62,6 @@ namespace Infra.Events
 
         void DelegateTo(TypeBuilder tb, FieldInfo fi)
         {
-            Contract.Requires<ArgumentNullException>(tb != null);
-            Contract.Requires<ArgumentNullException>(fi != null);
-
             foreach (var mi in
                 fi.FieldType.GetMethods().Concat(
                     fi.FieldType.GetInterfaces().SelectMany(i => i.GetMethods())))

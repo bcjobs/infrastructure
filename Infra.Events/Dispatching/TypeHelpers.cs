@@ -12,9 +12,6 @@ namespace Infra.Events.Dispatching
     {
         public static IEnumerable<Type> GetCovariantTypes(this Type type)
         {
-            Contract.Requires<ArgumentNullException>(type != null);
-            Contract.Ensures(Contract.Result<IEnumerable<Type>>() != null);
-
             var args = type.GetGenericArguments();
             var covariantIndices = type
                 .GetCovariantArgumentIndices()
@@ -38,23 +35,16 @@ namespace Infra.Events.Dispatching
 
         public static Type GetHandlerType(this Type type)
         {
-            Contract.Requires<ArgumentNullException>(type != null);
-            Contract.Ensures(Contract.Result<Type>() != null);
             return typeof(IHandler<>).MakeGenericType(type);
         }
 
         public static Type GetEnumerableType(this Type type)
         {
-            Contract.Requires<ArgumentNullException>(type != null);
-            Contract.Ensures(Contract.Result<Type>() != null);
             return typeof(IEnumerable<>).MakeGenericType(type);
         }
 
         static IEnumerable<int> GetCovariantArgumentIndices(this Type type)
         {
-            Contract.Requires<ArgumentNullException>(type != null);
-            Contract.Ensures(Contract.Result<IEnumerable<int>>() != null);
-
             var result = new HashSet<int>();
             var args = type.GetGenericArguments();
             for (int i = 0; i < args.Length; i++)
@@ -75,9 +65,6 @@ namespace Infra.Events.Dispatching
 
         static IEnumerable<Type> GetImplementedTypes(this Type type)
         {
-            Contract.Requires<ArgumentNullException>(type != null);
-            Contract.Ensures(Contract.Result<IEnumerable<Type>>() != null);
-
             var types = new List<Type>(type.GetInterfaces());
             while (type != null)
             {

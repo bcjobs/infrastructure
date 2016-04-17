@@ -16,9 +16,6 @@ namespace Infra.Authentications.Identity
 
         public static AuthenticationUser GetOrCreate(string userId)
         {
-            Contract.Requires<ArgumentNullException>(userId != null);
-            Contract.Ensures(Contract.Result<AuthenticationUser>() != null);
-
             var user = UserManager.FindById(userId);
             if (user == null)
             {
@@ -39,9 +36,6 @@ namespace Infra.Authentications.Identity
 
         public static async Task<AuthenticationUser> GetOrCreateAsync(string userId)
         {
-            Contract.Requires<ArgumentNullException>(userId != null);
-            Contract.Ensures(Contract.Result<AuthenticationUser>() != null);
-
             var user = await UserManager.FindByIdAsync(userId);
             if (user == null)
             {

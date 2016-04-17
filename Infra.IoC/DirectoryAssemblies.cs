@@ -15,9 +15,6 @@ namespace Infra.IoC
     {
         public DirectoryAssemblies(string directory)            
         {
-            Contract.Requires<ArgumentNullException>(directory != null);
-            Contract.Ensures(Directory != null);
-
             Directory = new DirectoryInfo(directory);
         }
 
@@ -37,7 +34,6 @@ namespace Infra.IoC
         [DebuggerHidden]
         Assembly AssemblyOrNull(string path)
         {
-            Contract.Requires<ArgumentNullException>(path != null);
             try
             {
                 return Assembly.LoadFile(path);
