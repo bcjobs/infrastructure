@@ -48,6 +48,9 @@ namespace Infra.Authentications.Identity.Services
 
         public async Task SignInAsync(string email, string password)
         {
+            if (string.IsNullOrWhiteSpace(password))
+                throw new InvalidCredentialsException();
+
             var userId = UserLookup.UserId(email);
             if (userId == null)
                 throw new InvalidCredentialsException();
