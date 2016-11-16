@@ -24,7 +24,7 @@ namespace Infra.Authentications.Identity.Services
             get
             {
                 IPAddress address;
-                if (IPAddress.TryParse(HttpContext.Current.Request.UserHostAddress, out address))
+                if (IPAddress.TryParse(HttpContext.Current.Request.Headers.GetValues("CF-Connecting-IP").FirstOrDefault(), out address))
                     return address;
 
                 return IPAddress.None;
